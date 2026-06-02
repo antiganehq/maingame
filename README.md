@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# maingame.fun
 
-## Getting Started
+maingame.fun is a marketplace that connects game developers with streamers through paid Dots-funded campaign offers.
 
-First, run the development server:
+This repository is the foundation monorepo. It does not implement the full product yet.
+
+## Apps
+
+- `apps/web`: public maingame.fun app.
+- `apps/pro`: private pro.maingame.fun dashboard app.
+- `apps/api`: backend API for api.maingame.fun.
+
+## Packages
+
+- `packages/ui`: shared UI primitives.
+- `packages/db`: Prisma schema, Prisma client setup, and Supabase PostgreSQL connection helpers.
+- `packages/types`: shared TypeScript enums and domain types.
+- `packages/validators`: shared Zod validation schemas.
+- `packages/brand`: app name, URLs, tagline, navigation, and brand copy.
+- `packages/config`: shared TypeScript, ESLint, and Tailwind configuration.
+- `packages/utils`: shared utility functions.
+
+## Local Setup
+
+Requirements:
+
+- Node.js 20.9 or newer.
+- pnpm 10 or newer.
+- Supabase PostgreSQL connection string for database work.
+
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy environment variables:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cp .env.example .env
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start all apps through Turborepo:
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Default local URLs:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Public app: `http://localhost:3000`
+- Pro app: `http://localhost:3001`
+- API: `http://localhost:8787`
+- Health check: `http://localhost:8787/health`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Useful Commands
 
-## Deploy on Vercel
+```bash
+pnpm dev
+pnpm build
+pnpm lint
+pnpm typecheck
+pnpm db:generate
+pnpm db:migrate
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`DATABASE_URL` should point to the Supabase PostgreSQL pooled connection URL when possible. `DIRECT_URL` should point to the direct database URL for Prisma migrations.
+
+Auth is expected to use Privy. Supabase Auth is intentionally not part of this project.

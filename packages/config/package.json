@@ -1,0 +1,24 @@
+{
+  "name": "@maingame/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./eslint/base": "./eslint/base.mjs",
+    "./eslint/next": "./eslint/next.mjs",
+    "./tailwind/postcss": "./tailwind/postcss.mjs",
+    "./typescript/base.json": "./typescript/base.json",
+    "./typescript/next.json": "./typescript/next.json",
+    "./typescript/node.json": "./typescript/node.json"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@eslint/js": "^9.28.0",
+    "eslint-config-next": "16.2.7",
+    "globals": "^16.2.0",
+    "typescript-eslint": "^8.34.0"
+  }
+}

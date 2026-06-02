@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  GAME_DEVELOPER
+  STREAMER
+  ADMIN
+}
+
+enum CampaignStatus {
+  DRAFT
+  FUNDED
+  OFFERED
+  ACCEPTED
+  REJECTED
+  SCHEDULED
+  SUBMITTED
+  APPROVED
+  PAID
+  CANCELLED
+}
+
+enum StreamPlatform {
+  TWITCH
+  YOUTUBE
+  KICK
+  OTHER
+}
+
+enum LedgerEntryType {
+  CREDIT
+  DEBIT
+  ESCROW_HOLD
+  ESCROW_RELEASE
+  ESCROW_REFUND
+}
+
+model User {
+  id              String           @id @default(uuid())
+  privyUserId     String           @unique
+  email           String?
+  role            UserRole
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  studios         StudioMember[]
+  streamerProfile StreamerProfile?
+  ledgerEntries   DotsLedgerEntry[]
+}
+
+model Studio {
+  id        String         @id @default(uuid())
+  name      String
+  slug      String         @unique
+  website   String?
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  members   StudioMember[]
+  games     Game[]
+}
+
+model StudioMember {
+  id        String   @id @default(uuid())
+  studioId  String
+  userId    String
+  createdAt DateTime @default(now())
+  studio    Studio   @relation(fields: [studioId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([studioId, userId])
+}
+
+model Game {
+  id               String     @id @default(uuid())
+  studioId         String
+  title            String
+  slug             String     @unique
+  shortDescription String
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  studio           Studio     @relation(fields: [studioId], references: [id], onDelete: Cascade)
+  campaigns        Campaign[]
+}
+
+model StreamerProfile {
+  id              String         @id @default(uuid())
+  userId          String         @unique
+  displayName     String
+  slug            String         @unique
+  primaryPlatform StreamPlatform
+  channelUrl      String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  user            User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaigns       Campaign[]
+}
+
+model Campaign {
+  id                String            @id @default(uuid())
+  gameId            String
+  streamerProfileId String
+  status            CampaignStatus    @default(DRAFT)
+  dotsBudget        Int
+  brief             String
+  scheduledAt       DateTime?
+  acceptedAt        DateTime?
+  submittedAt       DateTime?
+  approvedAt        DateTime?
+  paidAt            DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  game              Game              @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  streamerProfile   StreamerProfile   @relation(fields: [streamerProfileId], references: [id], onDelete: Cascade)
+  archives          StreamArchive[]
+  ledgerEntries     DotsLedgerEntry[]
+}
+
+model StreamArchive {
+  id          String   @id @default(uuid())
+  campaignId  String
+  liveUrl     String?
+  archiveUrl  String
+  notes       String?
+  createdAt   DateTime @default(now())
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+}
+
+model DotsLedgerEntry {
+  id         String          @id @default(uuid())
+  userId     String
+  campaignId String?
+  type       LedgerEntryType
+  amount     Int
+  memo       String?
+  createdAt  DateTime        @default(now())
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaign   Campaign?       @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+}

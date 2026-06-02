@@ -1,0 +1,33 @@
+{
+  "name": "@maingame/pro",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start --port 3001",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@maingame/brand": "workspace:*",
+    "@maingame/types": "workspace:*",
+    "@maingame/ui": "workspace:*",
+    "@maingame/utils": "workspace:*",
+    "next": "16.2.7",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@maingame/config": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.10",
+    "@types/node": "^20.19.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "eslint": "^9.28.0",
+    "eslint-config-next": "16.2.7",
+    "tailwindcss": "^4.1.10",
+    "typescript": "^5.8.3"
+  }
+}
