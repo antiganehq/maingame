@@ -1,50 +1,57 @@
 # AGENTS.md
 
-# maingame.fun — AI Agent Rules
+This is the first file every AI agent must read before changing this repository.
 
-This file defines permanent rules for all AI agents working on maingame.fun.
+Also read `PROJECT_CONTEXT.md` before planning or implementation work.
 
-All agents must read this file before making changes.
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
 
----
+This version has breaking changes - APIs, conventions, and file structure may differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any Next.js code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
 
-## 1. Product Identity
+## Product Identity
 
 maingame.fun is a marketplace that connects Game Developers and Streamers.
 
-The product is not a generic game catalog.
-The product is not a crypto-first platform.
-The product is not a streaming platform.
+The product is:
 
-It is a paid campaign marketplace where:
+- a paid campaign marketplace for games and creators
+- a place for Game Developers to fund streamer campaigns
+- a place for Streamers to discover paid game campaigns
+- a public discovery surface for games being streamed
 
-- GameDev pays streamers to promote/play games.
-- Streamers discover paid game campaigns.
-- Public users discover games through live/scheduled streams.
+The product is not:
 
----
+- a generic game catalog
+- a streaming platform
+- a crypto-first app
+- a token launch project
+- a subscription SaaS product
+- an AI matching product in the MVP
 
-## 2. Core MVP Loop
+Do not change product direction without explicit user instruction.
 
-The MVP must focus on this core loop:
+## MVP Loop
 
-GameDev creates game
-→ GameDev chooses streamer
-→ GameDev creates campaign offer
-→ GameDev funds campaign escrow using Dots
-→ Streamer accepts campaign
-→ Streamer streams the game
-→ Streamer submits live/archive link
-→ GameDev approves completion
-→ Streamer receives Dots
+The MVP must prove this loop:
 
-Any feature that does not support this loop is secondary.
+1. GameDev creates a studio profile.
+2. GameDev creates a game.
+3. GameDev chooses a streamer.
+4. GameDev creates a campaign offer.
+5. GameDev funds campaign escrow using Dots.
+6. Streamer accepts the campaign.
+7. Streamer streams the game.
+8. Streamer submits live/archive link.
+9. GameDev approves completion.
+10. Streamer receives Dots.
 
----
+Any feature that does not directly support this loop is secondary.
 
-## 3. Architecture
+## Monorepo Architecture
 
-This project uses a monorepo.
+Use pnpm workspaces and Turborepo.
 
 Required structure:
 
@@ -59,333 +66,259 @@ packages/
   db/          Prisma schema and database client
   types/       Shared TypeScript types
   validators/  Shared Zod schemas
-  brand/       Shared brand constants and copy
-  config/      Shared config
+  brand/       Shared brand constants, copy, and assets
+  config/      Shared TypeScript, ESLint, and Tailwind config
   utils/       Shared utilities
 ```
 
----
+Do not merge the public app, pro app, and API into one app.
 
-## 4. App Responsibilities
+## App Responsibilities
 
-## apps/web
+### apps/web
 
-Public-facing app.
+Public app for `maingame.fun`.
 
-Domain:
-maingame.fun
+Allowed responsibilities:
 
-Responsibilities:
-
-- Landing page
-- Public game catalog
-- Public game detail pages
-- Public streamer pages
-- Public stream schedule
-- Public stream archive
+- public homepage
+- public game catalog
+- public game detail pages
+- public streamer pages
+- public "streaming today" view
+- public stream archive pages
 - SEO and marketing pages
 
-Must not contain private dashboard logic.
+Rules:
 
----
+- must not contain private dashboard workflows
+- must not perform sensitive writes directly
+- must call `apps/api` for backend data and actions
 
-## apps/pro
+### apps/pro
 
-Private authenticated app.
+Private dashboard app for `pro.maingame.fun`.
 
-Domain:
-pro.maingame.fun
+Allowed responsibilities:
 
-Responsibilities:
-
-- Login
-- Onboarding
+- Privy login UI
+- onboarding flows
 - GameDev dashboard
 - Streamer dashboard
-- Campaign management
-- Dots wallet
-- Profile management
-- Admin dashboard
+- game management UI
+- campaign management UI
+- Dots wallet UI
+- profile management UI
+- admin UI when explicitly requested
 
-Must require authentication for private routes.
+Rules:
 
----
+- private routes must require authentication
+- must not implement sensitive business logic directly
+- must call `apps/api` for campaign, Dots, escrow, payout, and approval actions
 
-## apps/api
+### apps/api
 
-Backend API.
+Backend API for `api.maingame.fun`.
 
-Domain:
-api.maingame.fun
+Required responsibilities:
 
-Responsibilities:
+- business logic
+- authorization checks
+- validation boundaries
+- database writes
+- campaign lifecycle changes
+- Dots ledger changes
+- escrow funding
+- payout release
+- refunds
+- top-up/admin approval logic
+- public read APIs
+- private authenticated APIs
 
-- Business logic
-- Database writes
-- Campaign creation
-- Campaign escrow
-- Dots ledger
-- Payment/top-up handling
-- Admin operations
-- Public read APIs
-- Private authenticated APIs
+Sensitive business logic belongs here, not in frontend apps.
 
-Frontend apps must not directly implement sensitive business logic.
-
----
-
-## 5. Technology Rules
+## Technology Rules
 
 Use:
 
 - pnpm
 - Turborepo
 - TypeScript
-- Next.js
-- Hono
+- Next.js for `apps/web` and `apps/pro`
+- Hono for `apps/api`
 - Supabase PostgreSQL
 - Prisma
 - Privy
 - Tailwind CSS
-- shadcn/ui
+- shadcn/ui-compatible shared UI
 - Zod
 
-Do not use:
+Avoid:
 
-- Supabase Auth for MVP
-- crypto token logic
-- subscription billing
-- blockchain smart contracts
-- complex microservices
+- unnecessary services
 - unnecessary state management libraries
-- unnecessary background job systems before needed
+- background job systems before they are needed
+- unrelated refactors during feature tasks
+- hardcoded secrets
+- fake production logic that hides missing backend work
 
----
+## Auth Rules
 
-## 6. Authentication Rule
+Privy is the auth provider for the MVP.
 
-Privy is the source of authentication and embedded wallet identity.
+Use Privy for:
 
-Supabase is not used for authentication in MVP.
+- user authentication
+- embedded wallet identity
+- authenticated session identity passed to the API
 
-Supabase is used for:
+Do not use Supabase Auth.
+
+Do not replace Privy with another auth provider unless explicitly requested.
+
+## Database Rules
+
+Supabase is used as PostgreSQL database infrastructure.
+
+Use Supabase for:
 
 - PostgreSQL database
-- optional storage for images and proof uploads
+- optional storage for images, proof uploads, or similar assets
 
----
+Use Prisma for:
 
-## 7. Dots Rule
+- schema definition
+- migrations
+- typed database access
 
-Dots is internal platform credit.
+Rules:
 
-Dots is not a crypto token in MVP.
+- Prisma schema lives in `packages/db`.
+- Database access helpers live in `packages/db`.
+- Schema changes must go through Prisma schema and migrations.
+- Frontend apps must not bypass API-owned business rules with direct database writes.
+
+## Dots Rules
+
+Dots is internal platform credit only.
+
+Dots is not:
+
+- a crypto token
+- an SPL token
+- an ERC-20 token
+- on-chain money
+- a tradable asset
+- a staking or rewards token
 
 Do not implement:
 
 - token minting
 - blockchain wallet transfers
-- on-chain ledger
+- on-chain ledgers
 - tokenomics
-- crypto trading
 - staking
 - NFT features
+- crypto trading
 
-All Dots operations must be represented in the database ledger.
+All Dots balance changes must be recorded in the database ledger.
 
-Every Dots balance change must have a transaction record.
+Dots operations such as top-up credit, escrow hold, escrow release, payout, refund, and manual adjustment must happen through `apps/api`.
 
----
+## Payment Rules
 
-## 8. Payment Rule
+For MVP, top-ups may be manual or semi-manual.
 
-For MVP, QRIS/top-up may be manual or semi-manual.
-
-Payment provider integration can be added later.
-
-MVP payment flow:
+Preferred MVP flow:
 
 1. GameDev creates top-up request.
-2. Admin reviews payment proof.
-3. Admin approves top-up.
-4. Dots are credited to GameDev.
-5. GameDev funds campaign escrow.
-6. Dots are released to Streamer after campaign completion.
+2. GameDev submits payment proof.
+3. Admin reviews payment proof.
+4. Admin approves top-up.
+5. API credits Dots to GameDev ledger.
+6. GameDev funds campaign escrow using Dots.
+7. API releases Dots to Streamer after GameDev approval.
 
----
+Do not add subscription billing unless explicitly requested.
 
-## 9. Business Logic Rule
-
-Sensitive actions must happen in apps/api.
-
-Examples:
-
-- funding campaign escrow
-- releasing streamer payout
-- refunding campaign
-- approving top-up
-- changing campaign status
-- changing wallet balance
-
-Do not perform these directly from frontend apps.
-
----
-
-## 10. Code Quality Rules
-
-All code must be:
-
-- typed
-- readable
-- modular
-- minimal
-- reusable where appropriate
-
-Prefer:
-
-- server-side validation
-- shared Zod schemas
-- shared TypeScript types
-- explicit database transactions
-- small components
-- clear file names
-
-Avoid:
-
-- overengineering
-- unrelated features
-- large files
-- duplicated business logic
-- hardcoded secrets
-- fake production logic
-
----
-
-## 11. MVP Priority
-
-Build in this order:
-
-1. Foundation
-2. Auth and onboarding
-3. Profiles
-4. Game catalog
-5. Streamer catalog
-6. Campaign offers
-7. Scheduling
-8. Dots ledger
-9. Escrow and payout
-10. Public discovery
-11. Admin tools
-12. QA and launch
-
----
-
-## 12. Do Not Build Yet
+## Do Not Build Yet
 
 Do not build these unless explicitly requested:
 
-- AI streamer matching
-- recommendation engine
-- crypto token
+- crypto token logic
 - blockchain integration
+- smart contracts
+- token launch mechanics
+- NFT badges
+- subscription plans
+- advanced AI matching
+- recommendation engine
 - Twitch API integration
 - YouTube API integration
-- real-time chat
+- full chat system
 - complex questionnaire builder
-- affiliate system
-- subscription plan
-- NFT badges
 - advanced analytics
 - mobile app
-- native desktop app
+- desktop app
+- multi-service architecture
 
----
+## Code Rules
 
-## 13. Database Rule
+Keep work small and aligned to the assigned task.
 
-Use Prisma in packages/db.
+Prefer:
 
-Supabase PostgreSQL is the database provider.
+- TypeScript everywhere
+- shared Zod schemas in `packages/validators`
+- shared domain types in `packages/types`
+- shared brand constants in `packages/brand`
+- reusable UI primitives in `packages/ui`
+- explicit database transactions for money/Dots operations
+- clear names and small files
 
-All database schema changes must be done through Prisma schema and migrations.
+Do not:
 
----
+- add unrelated product features
+- duplicate business logic across frontend apps
+- leak secrets into source files
+- move sensitive logic out of `apps/api`
+- change app boundaries for convenience
 
-## 14. Environment Variables
+## Environment Rules
 
 Never hardcode secrets.
 
-Use `.env.example` for required variables.
+Document required variables in `.env.example`.
 
-Expected variables:
+Important variable families:
 
-```env
-DATABASE_URL=
-DIRECT_URL=
+- app URLs
+- API port/CORS
+- Supabase PostgreSQL `DATABASE_URL`
+- Prisma migration `DIRECT_URL`
+- Supabase optional storage/client variables
+- Privy app ID and secret
+- future payment webhook secrets when payments are added
 
-NEXT_PUBLIC_WEB_URL=http://localhost:3000
-NEXT_PUBLIC_PRO_URL=http://localhost:3001
-NEXT_PUBLIC_API_URL=http://localhost:8787
+## Agent Completion Report
 
-PRIVY_APP_ID=
-PRIVY_APP_SECRET=
+After completing a task, report:
 
-SUPABASE_URL=
-SUPABASE_SERVICE_ROLE_KEY=
-SUPABASE_ANON_KEY=
-
-QRIS_PROVIDER=
-PAYMENT_WEBHOOK_SECRET=
-```
-
----
-
-## 15. Agent Output Rule
-
-After completing a task, always report:
-
-- what was changed
-- files created
-- files modified
+- files changed
 - commands to run
 - how to test
-- known limitations
+- known limitations, if any
 - recommended next task
 
----
+## Final Reminder
 
-## 16. Product Tone
+Do not change the product direction.
 
-maingame.fun should feel:
-
-- playful
-- creator-friendly
-- modern
-- trustworthy
-- simple
-- game-native
-
-Avoid overly corporate language.
-
-Preferred positioning:
-
-"Where Game Developers meet Streamers."
-
-Alternative:
-"Launch your game through creators."
-"Find streamers to play your game."
-"Get paid to stream new games."
-
----
-
-## 17. Final Reminder
-
-Do not change the product direction without explicit instruction.
-
-Do not merge public app, pro app, and API into one app.
+Do not merge `apps/web`, `apps/pro`, and `apps/api`.
 
 Do not replace Privy with Supabase Auth.
 
-Do not treat Dots as crypto token.
+Do not treat Dots as crypto.
 
-Do not build features outside the assigned task.
+Do not build outside the assigned task.

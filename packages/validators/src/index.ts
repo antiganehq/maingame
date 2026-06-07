@@ -46,8 +46,12 @@ export const archiveSubmissionSchema = z.object({
   notes: z.string().max(1000).optional()
 });
 
+export { createGameSchema, updateGameSchema } from "./games";
+
 export type StudioRegistrationInput = z.infer<typeof studioRegistrationSchema>;
 export type GameCreateInput = z.infer<typeof gameCreateSchema>;
 export type StreamerProfileInput = z.infer<typeof streamerProfileSchema>;
 export type CampaignOfferInput = z.infer<typeof campaignOfferSchema>;
 export type ArchiveSubmissionInput = z.infer<typeof archiveSubmissionSchema>;
+export type CreateGameInput = z.infer<typeof import("./games").createGameSchema>;
+export type UpdateGameInput = z.infer<typeof import("./games").updateGameSchema>;

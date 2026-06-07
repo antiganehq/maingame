@@ -1,232 +1,211 @@
 # PROJECT_CONTEXT.md
 
-# maingame.fun Project Context
+Use this file as product context for every engineering task and ClickUp ticket.
 
-## Product
+## Product Summary
 
-maingame.fun is a marketplace for Game Developers and Streamers.
+maingame.fun is a marketplace that connects Game Developers with Streamers through paid game-streaming campaigns.
 
-It helps Game Developers promote their games through streamers, while helping Streamers discover paid game campaigns.
+The MVP is not a generic game catalog, streaming platform, crypto product, subscription product, or AI matching product.
 
----
+## User Types
 
-## Main Users
+### Game Developer
 
-## 1. Game Developer
+Needs to register a studio, list games, browse streamers, create campaign offers, fund campaigns with Dots, schedule streams, and approve completed streams.
 
-GameDev wants to:
+### Streamer
 
-- list games
-- find streamers
-- create campaign offers
-- schedule streams
-- pay streamers
-- collect feedback
-- review stream archives
+Needs to register a creator profile, browse games, receive campaign offers, accept or reject campaigns, stream games, submit live/archive links, and receive Dots after approval.
 
-## 2. Streamer
+### Public User
 
-Streamer wants to:
+Needs to browse games, see what is being streamed today, view game and streamer pages, and watch public stream archives.
 
-- discover paid game campaigns
-- receive campaign offers
-- negotiate or accept offers
-- schedule streams
-- submit live/archive links
-- receive payment in Dots
+### Admin
 
-## 3. Public User
-
-Public user wants to:
-
-- discover games being streamed
-- see live/scheduled streams
-- view game pages
-- view streamer pages
-- watch stream archives
-
-## 4. Admin
-
-Admin wants to:
-
-- verify profiles
-- approve games
-- monitor campaigns
-- review payment/top-up requests
-- handle disputes
-- moderate comments
-
----
+Needs to review top-ups, monitor campaigns, moderate content, resolve disputes, and make manual ledger adjustments when required.
 
 ## MVP Goal
 
-The MVP should prove that a GameDev can pay a Streamer to stream a game through maingame.fun.
+Prove that a GameDev can pay a Streamer to stream a game through maingame.fun using internal Dots credit.
 
-The MVP is successful if this loop works:
+## Core MVP Loop
 
-1. GameDev logs in.
-2. GameDev creates profile.
-3. GameDev creates game.
-4. Streamer logs in.
-5. Streamer creates profile.
-6. GameDev finds streamer.
-7. GameDev creates campaign offer.
-8. Streamer accepts campaign.
-9. GameDev funds campaign with Dots.
-10. Streamer streams the game.
-11. Streamer submits live/archive link.
-12. GameDev approves completion.
-13. Streamer receives Dots.
+1. GameDev creates a studio profile.
+2. GameDev creates a game.
+3. GameDev chooses a streamer.
+4. GameDev creates a campaign offer.
+5. GameDev funds campaign escrow using Dots.
+6. Streamer accepts the campaign.
+7. Streamer streams the game.
+8. Streamer submits live/archive link.
+9. GameDev approves completion.
+10. Streamer receives Dots.
 
----
+Build around this loop first.
 
 ## Product Domains
 
-## maingame.fun
+### maingame.fun
 
-Public marketing and discovery app.
+Public discovery app in `apps/web`.
 
-Contains:
+Owns public pages only:
 
-- landing page
+- homepage
 - game catalog
-- game detail page
-- streamer profile page
-- stream schedule
-- stream archive
+- game detail pages
+- streamer profile pages
+- streaming today page
+- public stream archive pages
 
-## pro.maingame.fun
+### pro.maingame.fun
 
-Private dashboard app.
+Private authenticated dashboard in `apps/pro`.
 
-Contains:
+Owns private user workflows:
 
-- login
+- Privy login UI
 - onboarding
 - GameDev dashboard
 - Streamer dashboard
-- wallet
-- campaigns
-- admin dashboard
+- game management UI
+- campaign management UI
+- Dots wallet UI
+- profile settings UI
+- admin UI when explicitly requested
 
-## api.maingame.fun
+### api.maingame.fun
 
-Backend API.
+Backend API in `apps/api`.
 
-Contains:
+Owns sensitive product logic:
 
-- business logic
-- database access
-- campaign operations
-- Dots ledger
-- escrow
-- payment/top-up operations
+- auth/session verification
+- validation
+- database writes
+- campaign lifecycle transitions
+- Dots ledger changes
+- escrow hold/release/refund
+- top-up approval
+- payout release
 - admin operations
+- public/private API responses
 
----
+Frontend apps must call the API for sensitive actions.
 
-## Core Data Entities
+## Core Entities
 
 - User
-- GameDevProfile
-- StreamerProfile
+- Studio
+- StudioMember
 - Game
+- StreamerProfile
 - Campaign
-- DotsTransaction
+- StreamArchive
+- DotsLedgerEntry
 - TopUpRequest
-- Questionnaire
-- QuestionnaireQuestion
-- QuestionnaireResponse
-- Comment
+- PaymentProof
+- AdminAction
+- Dispute
 
----
+Add entities only when they support the MVP loop.
 
-## Main Campaign Statuses
+## Campaign Statuses
+
+Use a simple lifecycle first:
 
 - Draft
 - Offered
-- Negotiating
 - Accepted
-- Scheduled
+- Rejected
 - Funded
-- Live
-- Completed
-- Under Review
+- Scheduled
+- Submitted
+- Approved
 - Paid
 - Cancelled
 - Disputed
 
----
+Avoid adding negotiation or complex review states until the core loop works.
 
-## Main Transaction Types
+## Dots Transaction Types
 
-- TopUpRequest
+Dots is internal platform credit only.
+
+Expected ledger entry types:
+
 - TopUpCredit
-- CampaignEscrow
+- CampaignEscrowHold
+- CampaignEscrowRelease
 - CampaignPayout
+- CampaignRefund
 - PlatformFee
-- Refund
 - ManualAdjustment
 
----
+Every Dots balance change must have a ledger entry and must be executed through `apps/api`.
 
-## MVP Business Model
+## Business Model
 
-maingame.fun earns revenue from:
+Initial revenue model:
 
 - platform fee on completed campaigns
-- optional featured placement later
-- optional managed campaign services later
 
-Initial platform fee recommendation:
-10%
+Later possible revenue:
 
----
+- featured game or streamer placement
+- managed campaign services
 
-## Important Constraints
+Do not build subscription logic for the MVP.
+
+## Technical Constraints
 
 - Use Privy for auth.
-- Use Supabase PostgreSQL for database.
-- Use Prisma for schema, migration, and database access.
-- Use Hono for backend API.
+- Do not use Supabase Auth.
+- Use Supabase PostgreSQL as the database.
+- Use Prisma for schema, migrations, and database access.
+- Use Hono for the backend API.
 - Use Next.js for public and pro apps.
-- Keep apps separated.
-- Keep business logic in API.
-- Keep Dots internal.
-- Avoid crypto/token implementation for MVP.
-
----
+- Keep `apps/web`, `apps/pro`, and `apps/api` separated.
+- Keep sensitive business logic in `apps/api`.
+- Treat Dots as internal platform credit only.
+- Do not implement crypto token logic.
 
 ## Non-MVP Features
 
-Do not build these initially:
+Do not build these unless explicitly requested:
 
-- AI matching
+- crypto token logic
+- blockchain integration
+- smart contracts
+- token launch mechanics
+- NFT badges
+- subscription plans
+- advanced AI matching
+- recommendation engine
 - Twitch API integration
 - YouTube API integration
-- token launch
-- blockchain integration
-- NFT badges
-- advanced questionnaire builder
-- advanced analytics
 - full chat system
+- complex questionnaire builder
+- advanced analytics
 - mobile app
+- desktop app
+- multi-service architecture
 
----
+## Practical Build Order
 
-## Recommended First Build Order
-
-1. Monorepo foundation
-2. Database schema
-3. Auth
-4. Onboarding
-5. Profiles
-6. Game catalog
-7. Streamer catalog
-8. Campaign offer
-9. Scheduling
-10. Dots ledger
-11. Escrow and payout
-12. Public discovery
-13. Admin tools
-14. QA
+1. Monorepo foundation.
+2. Database schema and migrations.
+3. Privy auth integration.
+4. User onboarding.
+5. Studio and streamer profiles.
+6. Game catalog.
+7. Streamer catalog.
+8. Campaign offer creation.
+9. Dots ledger.
+10. Escrow funding.
+11. Stream submission.
+12. Approval and payout.
+13. Public discovery pages.
+14. Admin tools.

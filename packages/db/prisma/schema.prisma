@@ -14,17 +14,87 @@ enum UserRole {
   ADMIN
 }
 
+enum ProfileStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum GameStatus {
+  DRAFT
+  PUBLISHED
+  PAUSED
+  ARCHIVED
+  REJECTED
+}
+
 enum CampaignStatus {
   DRAFT
-  FUNDED
   OFFERED
   ACCEPTED
   REJECTED
+  FUNDED
   SCHEDULED
   SUBMITTED
   APPROVED
   PAID
   CANCELLED
+  DISPUTED
+}
+
+enum CampaignEventType {
+  CREATED
+  OFFERED
+  ACCEPTED
+  REJECTED
+  FUNDED
+  SCHEDULED
+  SUBMITTED
+  APPROVED
+  PAID
+  CANCELLED
+  DISPUTED
+  REFUNDED
+}
+
+enum DotsTransactionType {
+  TOP_UP_CREDIT
+  CAMPAIGN_ESCROW_HOLD
+  CAMPAIGN_ESCROW_RELEASE
+  CAMPAIGN_PAYOUT
+  CAMPAIGN_REFUND
+  PLATFORM_FEE
+  MANUAL_ADJUSTMENT
+}
+
+enum DotsTransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REVERSED
+}
+
+enum TopUpStatus {
+  PENDING
+  SUBMITTED
+  APPROVED
+  REJECTED
+  CREDITED
+}
+
+enum CommentStatus {
+  VISIBLE
+  HIDDEN
+  FLAGGED
+}
+
+enum QuestionnaireQuestionType {
+  SHORT_TEXT
+  LONG_TEXT
+  MULTIPLE_CHOICE
+  YES_NO
+  CHECKBOX
+  RATING
 }
 
 enum StreamPlatform {
@@ -34,24 +104,44 @@ enum StreamPlatform {
   OTHER
 }
 
-enum LedgerEntryType {
-  CREDIT
-  DEBIT
-  ESCROW_HOLD
-  ESCROW_RELEASE
-  ESCROW_REFUND
+enum DotsReferenceType {
+  CAMPAIGN
+  TOP_UP
+  MANUAL
+  PLATFORM
 }
 
 model User {
-  id              String           @id @default(uuid())
-  privyUserId     String           @unique
+  id              String            @id @default(uuid())
+  privyUserId     String            @unique
   email           String?
+  name            String?
+  avatar          String?
   role            UserRole
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  walletAddress   String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   studios         StudioMember[]
+  gameDevProfile  GameDevProfile?
   streamerProfile StreamerProfile?
-  ledgerEntries   DotsLedgerEntry[]
+  wallet          WalletBalance?
+  transactions    DotsTransaction[]
+  topUpRequests   TopUpRequest[]
+  comments        Comment[]
+}
+
+model GameDevProfile {
+  id          String        @id @default(uuid())
+  userId      String        @unique
+  studioName  String
+  slug        String        @unique
+  bio         String?
+  website     String?
+  status      ProfileStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  games       Game[]
 }
 
 model Studio {
@@ -62,7 +152,6 @@ model Studio {
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
   members   StudioMember[]
-  games     Game[]
 }
 
 model StudioMember {
@@ -74,18 +163,6 @@ model StudioMember {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([studioId, userId])
-}
-
-model Game {
-  id               String     @id @default(uuid())
-  studioId         String
-  title            String
-  slug             String     @unique
-  shortDescription String
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
-  studio           Studio     @relation(fields: [studioId], references: [id], onDelete: Cascade)
-  campaigns        Campaign[]
 }
 
 model StreamerProfile {
@@ -101,24 +178,87 @@ model StreamerProfile {
   campaigns       Campaign[]
 }
 
+model Game {
+  id                String       @id @default(uuid())
+  developerId       String
+  title             String
+  slug              String       @unique
+  description       String
+  genre             String?
+  platforms         String[]
+  coverImage        String?
+  screenshots       String[]
+  trailerUrl        String?
+  gameUrl           String?
+  campaignObjective String?
+  budgetMinDots     Int?
+  budgetMaxDots     Int?
+  status            GameStatus   @default(DRAFT)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  developer         GameDevProfile @relation(fields: [developerId], references: [id], onDelete: Cascade)
+  campaigns         Campaign[]
+
+  @@index([status])
+  @@index([developerId])
+  @@index([slug])
+}
+
 model Campaign {
   id                String            @id @default(uuid())
   gameId            String
   streamerProfileId String
-  status            CampaignStatus    @default(DRAFT)
-  dotsBudget        Int
-  brief             String
+  title             String
+  objective         String
+  requirements      String
+  proposedStartAt   DateTime?
   scheduledAt       DateTime?
+  durationMinutes   Int?
+  amountDots        Int
+  platformFeeDots   Int               @default(0)
+  status            CampaignStatus    @default(DRAFT)
+  liveUrl           String?
+  archiveUrl        String?
+  completionProof   String?
+  reviewNotes       String?
+  offeredAt         DateTime?
   acceptedAt        DateTime?
+  rejectedAt        DateTime?
+  fundedAt          DateTime?
+  scheduledSetAt    DateTime?
   submittedAt       DateTime?
   approvedAt        DateTime?
   paidAt            DateTime?
+  cancelledAt       DateTime?
+  disputedAt        DateTime?
   createdAt         DateTime          @default(now())
   updatedAt         DateTime          @updatedAt
   game              Game              @relation(fields: [gameId], references: [id], onDelete: Cascade)
   streamerProfile   StreamerProfile   @relation(fields: [streamerProfileId], references: [id], onDelete: Cascade)
+  events            CampaignEvent[]
   archives          StreamArchive[]
-  ledgerEntries     DotsLedgerEntry[]
+  transactions      DotsTransaction[] @relation("CampaignTransactions")
+  questionnaire     Questionnaire?
+
+  @@index([status])
+  @@index([gameId])
+  @@index([streamerProfileId])
+  @@index([scheduledAt])
+  @@index([status, scheduledAt])
+}
+
+model CampaignEvent {
+  id          String            @id @default(uuid())
+  campaignId  String
+  eventType   CampaignEventType
+  description String?
+  metadata    Json?
+  occurredAt  DateTime          @default(now())
+  campaign    Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId])
+  @@index([eventType])
+  @@index([occurredAt])
 }
 
 model StreamArchive {
@@ -129,16 +269,123 @@ model StreamArchive {
   notes       String?
   createdAt   DateTime @default(now())
   campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  comments    Comment[]
 }
 
-model DotsLedgerEntry {
-  id         String          @id @default(uuid())
+model WalletBalance {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  balance   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DotsTransaction {
+  id            String              @id @default(uuid())
+  userId        String
+  type          DotsTransactionType
+  amount        Int
+  status        DotsTransactionStatus @default(COMPLETED)
+  referenceType DotsReferenceType
+  referenceId   String?
+  metadata      Json?
+  createdAt     DateTime            @default(now())
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  campaign      Campaign?           @relation("CampaignTransactions", fields: [campaignId], references: [id], onDelete: SetNull)
+  campaignId    String?
+
+  @@index([userId])
+  @@index([campaignId])
+  @@index([status])
+  @@index([referenceType, referenceId])
+  @@index([createdAt])
+}
+
+model TopUpRequest {
+  id         String       @id @default(uuid())
   userId     String
-  campaignId String?
-  type       LedgerEntryType
   amount     Int
-  memo       String?
-  createdAt  DateTime        @default(now())
-  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  campaign   Campaign?       @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  proofUrl   String
+  status     TopUpStatus  @default(PENDING)
+  adminNote  String?
+  reviewedBy String?
+  reviewedAt DateTime?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Questionnaire {
+  id         String                 @id @default(uuid())
+  campaignId String                 @unique
+  title      String
+  createdAt  DateTime               @default(now())
+  updatedAt  DateTime               @updatedAt
+  campaign   Campaign               @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  questions  QuestionnaireQuestion[]
+  responses  QuestionnaireResponse[]
+
+  @@index([campaignId])
+}
+
+model QuestionnaireQuestion {
+  id             String                   @id @default(uuid())
+  questionnaireId String
+  questionType   QuestionnaireQuestionType
+  label          String
+  required       Boolean                  @default(false)
+  options        String[]
+  order          Int
+  createdAt      DateTime                 @default(now())
+  questionnaire  Questionnaire            @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+
+  @@index([questionnaireId])
+}
+
+model QuestionnaireResponse {
+  id             String   @id @default(uuid())
+  questionnaireId String
+  campaignId     String
+  submittedAt    DateTime @default(now())
+  questionnaire  Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  answers        QuestionnaireAnswer[]
+
+  @@index([questionnaireId])
+  @@index([campaignId])
+}
+
+model QuestionnaireAnswer {
+  id             String   @id @default(uuid())
+  responseId     String
+  questionId     String
+  textValue      String?
+  numberValue    Int?
+  booleanValue   Boolean?
+  arrayValue     String[]
+  response       QuestionnaireResponse @relation(fields: [responseId], references: [id], onDelete: Cascade)
+
+  @@index([responseId])
+  @@index([questionId])
+}
+
+model Comment {
+  id            String        @id @default(uuid())
+  archiveId     String
+  userId        String?
+  guestName     String?
+  content       String
+  status        CommentStatus @default(VISIBLE)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  archive       StreamArchive @relation(fields: [archiveId], references: [id], onDelete: Cascade)
+  user          User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([archiveId])
+  @@index([status])
+  @@index([createdAt])
 }
