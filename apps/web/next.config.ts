@@ -5,8 +5,16 @@ const nextConfig: NextConfig = {
     "@maingame/brand",
     "@maingame/types",
     "@maingame/ui",
-    "@maingame/utils"
-  ]
+    "@maingame/utils",
+  ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

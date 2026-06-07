@@ -6,6 +6,8 @@
   color-scheme: light;
   background: #fafafa;
   color: #18181b;
+  --brand: #22c55e;
+  --brand-foreground: #ffffff;
 }
 
 * {

@@ -3,6 +3,8 @@ export const appName = "maingame.fun";
 export const shortName = "maingame";
 
 export const tagline = "Where games meet their audience.";
+export const tagline1 = "Where games meet";
+export const tagline2 = "their audience.";
 
 export const positioning =
   "maingame.fun is the marketplace where game studios fund streamer campaigns and creators discover paid opportunities to play games they love.";
