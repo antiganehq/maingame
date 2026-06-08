@@ -67,6 +67,7 @@ packages/
   types/       Shared TypeScript types
   validators/  Shared Zod schemas
   brand/       Shared brand constants, copy, and assets
+  styles/      Shared design tokens (CSS custom properties + TS constants)
   config/      Shared TypeScript, ESLint, and Tailwind config
   utils/       Shared utilities
 ```
@@ -262,6 +263,23 @@ Do not build these unless explicitly requested:
 - mobile app
 - desktop app
 - multi-service architecture
+
+## Design Tokens
+
+`packages/styles` is the single source of truth for design tokens.
+
+It exports:
+
+- `@maingame/styles/src/globals.css` — Entry point that imports all modular token CSS files. Apps import via relative path: `@import "../../../../packages/styles/src/globals.css"`.
+- `@maingame/styles/src/tokens/` — Modular token files: `colors.css`, `fonts.css`, `spacing.css`, `radii.css`, `shadows.css`, `z-index.css`, `breakpoints.css`, `durations.css`.
+- `@maingame/styles` — Typed TS constants mirroring the CSS tokens (`colors`, `spacing`, `fontSize`, `fontWeight`, `lineHeight`, `letterSpacing`, `radii`, `shadows`, `zIndex`, `breakpoints`, `durations`).
+
+Rules:
+
+- Every app must import `packages/styles/src/globals.css` in its `globals.css` via relative path: `@import "../../../../packages/styles/src/globals.css"`.
+- New components must use `var(--token-name)` for CSS, or import from `@maingame/styles` for programmatic use.
+- Do not define ad-hoc `:root` CSS variables in individual apps — add them to `packages/styles/src/tokens/` instead.
+- When adding a token, update both the CSS file in `tokens/` and `tokens.ts` (the TS constant).
 
 ## Code Rules
 

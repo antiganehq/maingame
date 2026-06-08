@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { appName, tagline } from "@maingame/brand";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: appName,
-  description: tagline
+  description: tagline,
 };
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

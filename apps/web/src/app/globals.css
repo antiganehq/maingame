@@ -1,14 +1,7 @@
 @import "tailwindcss";
+@import "../../../../packages/styles/src/globals.css";
 
 @source "../../../../packages/ui/src";
-
-:root {
-  color-scheme: light;
-  background: #fafafa;
-  color: #18181b;
-  --brand: #22c55e;
-  --brand-foreground: #ffffff;
-}
 
 * {
   box-sizing: border-box;
@@ -16,7 +9,7 @@
 
 body {
   margin: 0;
-  background: #fafafa;
+  background: var(--color-background);
 }
 
 a {

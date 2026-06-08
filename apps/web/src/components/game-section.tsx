@@ -104,27 +104,27 @@ export function GameSection() {
   };
 
   return (
-    <section className="bg-neutral-950 px-4 sm:px-6 lg:px-8 py-16">
+    <section className="bg-[var(--color-section)] px-4 sm:px-6 lg:px-8 py-8">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-white text-2xl sm:text-3xl font-bold">
+            <h2 className="text-[var(--color-section-foreground)] text-2xl sm:text-3xl font-bold">
               Categories we think you&apos;ll like
             </h2>
-            <div className="w-12 h-1 bg-[var(--brand)] rounded-full mt-2" />
+            <div className="w-12 h-1 bg-[var(--color-brand)] rounded-full mt-2" />
           </div>
 
           <div className="flex gap-2">
             <button
               onClick={() => scroll("left")}
-              className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white transition-colors"
+              className="p-2 rounded-full bg-[var(--color-button-secondary)] hover:bg-[var(--color-button-secondary-hover)] text-[var(--color-section-foreground)] transition-colors"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="p-2 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white transition-colors"
+              className="p-2 rounded-full bg-[var(--color-button-secondary)] hover:bg-[var(--color-button-secondary-hover)] text-[var(--color-section-foreground)] transition-colors"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-5 h-5" />
@@ -137,7 +137,7 @@ export function GameSection() {
           className="flex gap-3 sm:gap-4 overflow-x-auto p-2 -m-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {MOCK_GAMES.map((game) => (
-              <div key={game.slug} className="flex-shrink-0 w-[calc((100%-2.5rem)/3)] sm:w-[calc((100%-3rem)/4)] md:w-[calc((100%-3.5rem)/5)] lg:w-[calc((100%-4rem)/6)]">
+              <div key={game.slug} className="flex-shrink-0 w-[calc((100%-2.25rem)/4)] sm:w-[calc((100%-4rem)/5)] md:w-[calc((100%-5rem)/6)] lg:w-[calc((100%-7rem)/8)]">
               <GameCard {...game} />
             </div>
           ))}
