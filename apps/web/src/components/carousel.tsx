@@ -57,8 +57,8 @@ export const Carousel = () => {
   };
 
   return (
-    <div className="relative overflow-hidden py-8">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-8">
+      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <motion.div
           drag="x"
           dragConstraints={{
@@ -138,8 +138,8 @@ const Dots = ({
 const GradientEdges = () => {
   return (
     <>
-      <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-r from-[var(--color-background)]/80 to-transparent" />
-      <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-l from-[var(--color-background)]/80 to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-r from-[var(--color-background)] to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-l from-[var(--color-background)] to-transparent" />
     </>
   );
 };
