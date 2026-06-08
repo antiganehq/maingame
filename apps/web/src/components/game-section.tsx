@@ -104,11 +104,11 @@ export function GameSection() {
   };
 
   return (
-    <section className="bg-[var(--color-section)] px-4 sm:px-6 lg:px-8 py-8">
+    <section className="px-4 sm:px-6 lg:px-8 py-8">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-[var(--color-section-foreground)] text-2xl sm:text-3xl font-bold">
+            <h2 className="text-[var(--color-foreground)] text-2xl sm:text-3xl font-bold">
               Categories we think you&apos;ll like
             </h2>
             <div className="w-12 h-1 bg-[var(--color-brand)] rounded-full mt-2" />
@@ -117,14 +117,14 @@ export function GameSection() {
           <div className="flex gap-2">
             <button
               onClick={() => scroll("left")}
-              className="p-2 rounded-full bg-[var(--color-button-secondary)] hover:bg-[var(--color-button-secondary-hover)] text-[var(--color-section-foreground)] transition-colors"
+              className="p-2 rounded-full bg-[var(--color-neutral-100)] hover:bg-[var(--color-neutral-200)] text-[var(--color-foreground)] transition-colors"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="p-2 rounded-full bg-[var(--color-button-secondary)] hover:bg-[var(--color-button-secondary-hover)] text-[var(--color-section-foreground)] transition-colors"
+              className="p-2 rounded-full bg-[var(--color-neutral-100)] hover:bg-[var(--color-neutral-200)] text-[var(--color-foreground)] transition-colors"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-5 h-5" />

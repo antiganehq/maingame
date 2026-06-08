@@ -29,7 +29,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="relative w-full bg-white px-6 py-4 dark:bg-neutral-950 border-b border-neutral-200 dark:border-neutral-800">
+    <nav className="relative w-full px-6 py-4 border-b border-[var(--color-border-light)]">
       <div className="mx-auto w-full max-w-[1400px]">
         <motion.div
           className="flex items-center justify-between"
@@ -52,7 +52,7 @@ export default function Navbar() {
                 onMouseEnter={() => setActiveMenu("products")}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white">
+                <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
                   Products
                   <ChevronDown className="h-4 w-4" />
                 </button>
@@ -67,7 +67,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute left-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg dark:border-neutral-800 dark:bg-neutral-950"
+                        className="absolute left-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-[var(--color-border-light)] bg-[var(--color-background)] shadow-lg"
                       >
                         <div className="p-2">
                           {menuItems.products.map((item, index) => (
@@ -80,7 +80,7 @@ export default function Navbar() {
                                 duration: 0.2,
                                 delay: index * 0.03,
                               }}
-                              className="block rounded-md px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-900 no-underline"
+                              className="block rounded-md px-4 py-2.5 text-sm text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
                             >
                               {item.name}
                             </motion.a>
@@ -98,7 +98,7 @@ export default function Navbar() {
                 onMouseEnter={() => setActiveMenu("solutions")}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white">
+                <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
                   Solutions
                   <ChevronDown className="h-4 w-4" />
                 </button>
@@ -113,7 +113,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute left-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg dark:border-neutral-800 dark:bg-neutral-950"
+                        className="absolute left-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-[var(--color-border-light)] bg-[var(--color-background)] shadow-lg"
                       >
                         <div className="p-2">
                           {menuItems.solutions.map((item, index) => (
@@ -126,7 +126,7 @@ export default function Navbar() {
                                 duration: 0.2,
                                 delay: index * 0.03,
                               }}
-                              className="block rounded-md px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-900 no-underline"
+                              className="block rounded-md px-4 py-2.5 text-sm text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
                             >
                               {item.name}
                             </motion.a>
@@ -141,7 +141,7 @@ export default function Navbar() {
               {/* Simple Link - Pricing */}
               <a
                 href="#"
-                className="rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white no-underline"
+                className="rounded-md px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] no-underline"
               >
                 Pricing
               </a>
@@ -152,26 +152,26 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             {/* Desktop: Notification Icon */}
             <button
-              className="hidden h-10 w-10 items-center justify-center rounded-md text-neutral-700 dark:text-neutral-300 lg:flex"
+              className="hidden h-10 w-10 items-center justify-center rounded-md text-[var(--color-muted-foreground)] lg:flex"
               aria-label="Notifications"
             >
               <Bell className="h-5 w-5" />
             </button>
 
             {/* Desktop: Sign In Button */}
-            <button className="hidden rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-900 lg:block">
+            <button className="hidden rounded-md border border-[var(--color-border-light)] px-4 py-2 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)] lg:block">
               Sign In
             </button>
 
             {/* Desktop: Try it FREE Button */}
-            <button className="hidden rounded-md bg-neutral-900 px-5 py-2 text-sm font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200 lg:block">
+            <button className="hidden rounded-md bg-[var(--color-foreground)] px-5 py-2 text-sm font-medium text-[var(--color-background)] hover:opacity-80 lg:block">
               Try it FREE
             </button>
 
             {/* Mobile: Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-md bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 lg:hidden z-50"
+              className="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--color-foreground)] text-[var(--color-background)] lg:hidden z-50"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? (
@@ -192,10 +192,10 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-white dark:bg-neutral-950 lg:hidden"
+            className="fixed inset-0 z-40 bg-[var(--color-background)] lg:hidden"
           >
             {/* Spacer for consistent layout */}
-            <div className="h-[73px] border-b border-neutral-200 dark:border-neutral-800" />
+            <div className="h-[73px] border-b border-[var(--color-border-light)]" />
 
             <div className="mx-auto flex h-[calc(100%-73px)] max-w-[1400px] flex-col px-6">
               {/* Menu Content */}
@@ -212,7 +212,7 @@ export default function Navbar() {
                         mobileAccordion === "products" ? null : "products",
                       )
                     }
-                    className="flex w-full items-center justify-between text-left text-2xl font-medium text-neutral-900 dark:text-white"
+                    className="flex w-full items-center justify-between text-left text-2xl font-medium text-[var(--color-foreground)]"
                   >
                     Products
                     <ChevronDown
@@ -233,7 +233,7 @@ export default function Navbar() {
                             <a
                               key={item.name}
                               href={item.href}
-                              className="block rounded-md px-4 py-3 text-base text-neutral-700 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-900 no-underline"
+                              className="block rounded-md px-4 py-3 text-base text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
                             >
                               {item.name}
                             </a>
@@ -256,7 +256,7 @@ export default function Navbar() {
                         mobileAccordion === "solutions" ? null : "solutions",
                       )
                     }
-                    className="flex w-full items-center justify-between text-left text-2xl font-medium text-neutral-900 dark:text-white"
+                    className="flex w-full items-center justify-between text-left text-2xl font-medium text-[var(--color-foreground)]"
                   >
                     Solutions
                     <ChevronDown
@@ -277,7 +277,7 @@ export default function Navbar() {
                             <a
                               key={item.name}
                               href={item.href}
-                              className="block rounded-md px-4 py-3 text-base text-neutral-700 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-900 no-underline"
+                              className="block rounded-md px-4 py-3 text-base text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
                             >
                               {item.name}
                             </a>
@@ -294,19 +294,19 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.3 }}
-                  className="text-2xl font-medium text-neutral-900 dark:text-white no-underline"
+                  className="text-2xl font-medium text-[var(--color-foreground)] no-underline"
                 >
                   Pricing
                 </motion.a>
               </div>
 
               {/* Bottom Actions */}
-              <div className="flex flex-col gap-3 border-t border-neutral-200 py-6 dark:border-neutral-800">
+              <div className="flex flex-col gap-3 border-t border-[var(--color-border-light)] py-6">
                 <motion.button
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.4 }}
-                  className="w-full rounded-md border border-neutral-300 px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-900"
+                  className="w-full rounded-md border border-[var(--color-border-light)] px-4 py-3 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)]"
                 >
                   Sign In
                 </motion.button>
@@ -314,7 +314,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.5 }}
-                  className="w-full rounded-md bg-neutral-900 px-4 py-3 text-sm font-medium text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+                  className="w-full rounded-md bg-[var(--color-foreground)] px-4 py-3 text-sm font-medium text-[var(--color-background)] hover:opacity-80"
                 >
                   Try it FREE
                 </motion.button>

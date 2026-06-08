@@ -21,7 +21,7 @@ export function GameCard({ title, slug, coverImage, streamerCount }: GameCardPro
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-section)]/90 via-[var(--color-section)]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-3">
           <h3 className="text-[var(--color-card-foreground)] font-semibold text-sm leading-tight truncate">
             {title}

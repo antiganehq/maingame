@@ -93,9 +93,9 @@ const MOCK_STREAMERS = [
 
 export function LiveSection() {
   return (
-    <section className="bg-[var(--color-section)] px-4 sm:px-6 lg:px-8 py-8">
+    <section className="px-4 sm:px-6 lg:px-8 py-8">
       <div className="max-w-[1400px] mx-auto">
-        <h2 className="text-[var(--color-section-foreground)] text-2xl sm:text-3xl font-bold">
+        <h2 className="text-[var(--color-foreground)] text-2xl sm:text-3xl font-bold">
           Currently Live
         </h2>
         <div className="w-12 h-1 bg-[var(--color-brand)] rounded-full mt-2 mb-8" />

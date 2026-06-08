@@ -37,7 +37,7 @@ export function StreamerCard({
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-section)]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <span className="absolute top-2 left-2 bg-[var(--color-brand)] text-[var(--color-brand-foreground)] text-[10px] font-bold px-1.5 py-0.5 rounded">
           LIVE
         </span>
@@ -56,7 +56,7 @@ export function StreamerCard({
           />
         </div>
         <div className="min-w-0">
-          <h3 className="text-[var(--color-card-foreground)] font-medium text-sm leading-tight line-clamp-2">
+          <h3 className="text-[var(--color-foreground)] font-medium text-sm leading-tight line-clamp-2">
             {streamTitle}
           </h3>
           <p className="text-[var(--color-muted)] text-xs mt-1 truncate">

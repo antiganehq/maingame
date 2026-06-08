@@ -7,7 +7,7 @@ import { tagline1, tagline2 } from "@maingame/brand";
 export function Hero12() {
   const buttonText = "Become Pro Now";
   return (
-    <section className="relative w-full bg-[var(--color-surface)] dark:bg-[var(--color-section)] overflow-hidden px-4 sm:px-6 lg:px-8 py-6">
+    <section className="relative w-full overflow-hidden px-4 sm:px-6 lg:px-8 py-6">
       <div className="max-w-[1400px] mx-auto w-full h-full relative min-h-[600px]">
         <div className="absolute inset-0 rounded-3xl overflow-hidden z-0">
           <video
