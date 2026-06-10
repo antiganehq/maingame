@@ -211,7 +211,7 @@ export function GameDetailPreview({
   if (!normalized.length) {
     return (
       <div className={["relative w-full", className ?? ""].join(" ")}>
-        <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-2xl bg-card text-sm text-muted-foreground shadow-arise-sm">
+        <div className="relative flex aspect-video items-center justify-center overflow-hidden border border-[var(--color-border-light)] text-sm text-[var(--color-muted-foreground)]">
           No media
         </div>
         {(showThumbnails || htmlElement) && (
@@ -228,7 +228,7 @@ export function GameDetailPreview({
       {/* Viewport */}
       <div
         ref={wrap}
-        className="relative aspect-video touch-pan-y overflow-hidden rounded-2xl bg-card shadow-arise-sm focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="relative aspect-video touch-pan-y overflow-hidden border border-[var(--color-border-light)] focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
         tabIndex={0}
         onKeyDown={onKeyDown}
         onPointerDown={onPointerDown}
@@ -247,7 +247,7 @@ export function GameDetailPreview({
         </div>
 
         {/* Counter */}
-        <div className="pointer-events-none absolute left-3 top-3 z-5 rounded-md bg-background px-2 py-1 text-xs text-foreground shadow-flat-sm">
+        <div className="pointer-events-none absolute left-3 top-3 z-5 bg-[var(--color-overlay-strong)] px-2 py-1 text-xs text-white">
           {`${index + 1} / ${normalized.length}`}
         </div>
 
@@ -256,7 +256,7 @@ export function GameDetailPreview({
           type="button"
           onClick={() => setIsPlaying((s) => !s)}
           aria-label={isPlaying ? "Pause autoplay" : "Play autoplay"}
-          className="absolute right-3 top-3 z-5 min-h-10 rounded-md bg-black/50 px-3 py-1 text-xs text-white transition-colors duration-150 hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          className="absolute right-3 top-3 z-5 min-h-10 bg-[var(--color-overlay-strong)] px-3 py-1 text-xs text-white transition-colors duration-150 hover:bg-black/80 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
         >
           {isPlaying ? "Pause" : "Play"}
         </button>
@@ -268,7 +268,7 @@ export function GameDetailPreview({
               type="button"
               onClick={goPrev}
               aria-label="Previous preview"
-              className="group absolute left-2 top-1/2 z-5 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white transition-colors duration-150 hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              className="group absolute left-2 top-1/2 z-5 flex size-10 -translate-y-1/2 items-center justify-center bg-[var(--color-overlay-strong)] text-white transition-colors duration-150 hover:bg-black/80 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               <Chevron dir="left" />
             </button>
@@ -276,7 +276,7 @@ export function GameDetailPreview({
               type="button"
               onClick={goNext}
               aria-label="Next preview"
-              className="group absolute right-2 top-1/2 z-5 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white transition-colors duration-150 hover:bg-black/70 focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              className="group absolute right-2 top-1/2 z-5 flex size-10 -translate-y-1/2 items-center justify-center bg-[var(--color-overlay-strong)] text-white transition-colors duration-150 hover:bg-black/80 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               <Chevron dir="right" />
             </button>
@@ -294,9 +294,9 @@ export function GameDetailPreview({
               type="button"
               onClick={() => goTo(i)}
               className={[
-                "relative h-20 aspect-video shrink-0 overflow-hidden rounded-md border transition-[opacity,border-color] duration-300 motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "relative h-20 aspect-video shrink-0 overflow-hidden border transition-[opacity,border-color] duration-300 motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]",
                 i === index
-                  ? "border-highlight opacity-100"
+                  ? "border-[var(--color-brand)] opacity-100"
                   : "border-transparent opacity-60 hover:opacity-100",
               ].join(" ")}
               aria-label={`Go to media ${i + 1}`}
@@ -318,7 +318,7 @@ export function GameDetailPreview({
                   >
                     <source src={it.src} type="video/mp4" />
                   </video>
-                  <span className="pointer-events-none absolute inset-0 grid place-items-center text-foreground/90">
+                  <span className="pointer-events-none absolute inset-0 grid place-items-center text-white/90">
                     <svg viewBox="0 0 24 24" className="h-6 w-6 drop-shadow">
                       <path fill="currentColor" d="M8 5v14l11-7z" />
                     </svg>

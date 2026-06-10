@@ -84,11 +84,26 @@ export const GAME_EXAMPLE: GameDetailData = {
   releaseDate: "2026-03-15",
   status: "PUBLISHED",
   previews: [
-    { kind: "image", src: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&q=80" },
-    { kind: "image", src: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=1200&q=80" },
-    { kind: "image", src: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&q=80" },
-    { kind: "image", src: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=1200&q=80" },
-    { kind: "image", src: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=1200&q=80" },
+    {
+      kind: "image",
+      src: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&q=80",
+    },
+    {
+      kind: "image",
+      src: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=1200&q=80",
+    },
+    {
+      kind: "image",
+      src: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&q=80",
+    },
+    {
+      kind: "image",
+      src: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=1200&q=80",
+    },
+    {
+      kind: "image",
+      src: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=1200&q=80",
+    },
   ],
   systemRequirements: [
     {
@@ -121,31 +136,66 @@ export const GAME_EXAMPLE: GameDetailData = {
 
 const PLATFORM_ICONS: Record<string, React.ReactNode> = {
   PC: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <rect x="2" y="3" width="20" height="14" rx="2" />
       <path d="M8 21h8M12 17v4" />
     </svg>
   ),
   Mac: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
       <path d="M12 5v.01" />
     </svg>
   ),
   macOS: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M4 19h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z" />
       <path d="M12 5v.01" />
     </svg>
   ),
   Linux: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2z" />
       <path d="M8.5 8.5a3.5 3.5 0 017 0" />
     </svg>
   ),
   "Steam Deck": (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
       <path d="M6 11h12a4 4 0 014 4v.5a3.5 3.5 0 01-7 0V15H9v.5a3.5 3.5 0 01-7 0V15a4 4 0 014-4z" />
       <circle cx="7.5" cy="12.5" r="1.5" />
       <circle cx="16.5" cy="12.5" r="1.5" />
@@ -174,7 +224,7 @@ export function GameDetail({
   return (
     <div
       className={cn(
-        "peridotvault-vault flex min-h-screen flex-col gap-8 bg-background pb-4 text-foreground duration-300",
+        "flex min-h-screen flex-col gap-8 pb-4 text-[var(--color-foreground)] duration-300",
         className,
       )}
       {...props}
@@ -208,7 +258,7 @@ export function GameDetailHero({
   return (
     <section
       className={cn(
-        "relative min-h-[30rem] w-full max-h-[50rem] overflow-hidden bg-card",
+        "relative min-h-[30rem] w-full max-h-[50rem] overflow-hidden bg-[var(--color-section)] text-[var(--color-section-foreground)]",
         className,
       )}
       {...props}
@@ -220,13 +270,13 @@ export function GameDetailHero({
           className="absolute inset-0 h-full w-full object-cover opacity-60"
         />
       ) : (
-        <div className="absolute inset-0 animate-pulse bg-muted motion-reduce:animate-none" />
+        <div className="absolute inset-0 animate-pulse bg-[var(--color-section)] motion-reduce:animate-none" />
       )}
 
       <div className="relative z-5 mx-auto flex min-h-[30rem] w-full max-w-[1480px] flex-col justify-end gap-6 px-6 py-8 sm:px-8 md:px-12 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex flex-col gap-4 md:w-3/5">
           {tags.length > 0 && (
-            <p className="tracking-wide text-foreground capitalize">
+            <p className="tracking-wide text-[var(--color-section-foreground)] capitalize">
               {tags.join(" - ")}
             </p>
           )}
@@ -288,11 +338,9 @@ export function GameDetailGlance({
       </div>
 
       <dl className="relative flex w-full shrink-0 flex-col justify-between gap-6 pb-6 lg:max-w-[440px]">
-        <div className="absolute top-0 left-0 -z-1 h-full w-full rounded-2xl bg-linear-to-l from-card to-70%" />
-
         <div className="flex flex-col gap-6">
           {horizontalCoverImage ? (
-            <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+            <div className="relative aspect-video w-full overflow-hidden">
               <img
                 src={horizontalCoverImage}
                 alt={`Cover game ${title}`}
@@ -300,22 +348,24 @@ export function GameDetailGlance({
               />
             </div>
           ) : (
-            <div className="aspect-video w-full animate-pulse rounded-2xl bg-muted motion-reduce:animate-none" />
+            <div className="aspect-video w-full animate-pulse bg-[var(--color-surface)] motion-reduce:animate-none" />
           )}
           <div className="pr-6">
             <dt className="sr-only">Game Description</dt>
-            <dd className="whitespace-pre-line leading-relaxed">{description}</dd>
+            <dd className="whitespace-pre-line leading-relaxed">
+              {description}
+            </dd>
           </div>
         </div>
 
         <div className="pr-6">
           <div className="flex flex-col gap-3">
-            <dt className="text-muted-foreground">Tags</dt>
+            <dt className="text-[var(--color-muted-foreground)]">Tags</dt>
             <dd className="flex flex-wrap gap-3">
               {safeTags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-lg bg-foreground/15 px-2 py-1 capitalize"
+                  className="border border-[var(--color-border-light)] px-2 py-1 capitalize"
                 >
                   {tag}
                 </span>
@@ -423,7 +473,14 @@ export function GameDetailMediaStrip({
                     viewBox="0 0 48 48"
                     className="text-[var(--color-muted-foreground)] group-hover/thumb:text-[var(--color-brand)] transition-colors"
                   >
-                    <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" strokeWidth="2" />
+                    <circle
+                      cx="24"
+                      cy="24"
+                      r="22"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    />
                     <polygon points="19,14 35,24 19,34" fill="currentColor" />
                   </svg>
                 </div>
@@ -489,7 +546,14 @@ export function GameDetailMediaStrip({
               className="absolute -top-10 right-0 w-8 h-8 flex items-center justify-center text-white hover:text-[var(--color-brand)] transition-colors"
               aria-label="Close trailer"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
@@ -520,7 +584,14 @@ export function GameDetailMediaStrip({
                   className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-black/70 text-white transition-colors"
                   aria-label="Previous screenshot"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M15 18l-6-6 6-6" />
                   </svg>
                 </button>
@@ -529,7 +600,14 @@ export function GameDetailMediaStrip({
                   className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-black/70 text-white transition-colors"
                   aria-label="Next screenshot"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </button>
@@ -541,7 +619,14 @@ export function GameDetailMediaStrip({
               className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-black/70 text-white transition-colors"
               aria-label="Close gallery"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
@@ -612,53 +697,34 @@ export function GameDetailSidebar({
       {...props}
     >
       {gameUrl && (
-        <div className="flex flex-col gap-4 rounded-2xl bg-card p-6">
+        <div className="flex flex-col gap-4 border border-[var(--color-border-light)] p-6">
           <div className="flex flex-col gap-1">
-            <span className="text-sm text-muted-foreground">Available from</span>
+            <span className="text-sm text-[var(--color-muted-foreground)]">
+              Available from
+            </span>
             <span className="text-xl font-medium">{developer.studioName}</span>
           </div>
           <a
             href={gameUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex min-h-14 w-full items-center justify-center rounded-xl bg-accent px-5 text-lg font-medium text-background transition-colors duration-300 hover:bg-highlight focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="flex min-h-14 w-full items-center justify-center bg-[var(--color-brand)] px-5 text-lg font-medium text-[var(--color-brand-foreground)] transition-colors duration-300 hover:bg-[var(--color-brand-hover)] focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
           >
             Visit Game Page
           </a>
         </div>
       )}
 
-      {developer.bio && (
-        <div className="flex gap-4 rounded-2xl bg-card p-5">
-          <div className="flex flex-col gap-2">
-            <h2 className="text-lg font-bold">{developer.studioName}</h2>
-            <p className="text-sm leading-relaxed text-foreground/50">
-              {developer.bio}
-            </p>
-            {developer.website && (
-              <a
-                href={developer.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-fit text-sm text-highlight hover:underline focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                Visit developer website
-              </a>
-            )}
-          </div>
-        </div>
-      )}
-
       <dl className="mb-4">
         {genre && (
-          <div className="flex w-full items-center justify-between border-b border-white/15 py-3">
-            <dt className="text-muted-foreground">Genre</dt>
+          <div className="flex w-full items-center justify-between border-b border-[var(--color-border-light)] py-3">
+            <dt className="text-[var(--color-muted-foreground)]">Genre</dt>
             <dd>{genre}</dd>
           </div>
         )}
         {platforms.length > 0 && (
-          <div className="flex w-full items-center justify-between border-b border-white/15 py-3">
-            <dt className="text-muted-foreground">Platform</dt>
+          <div className="flex w-full items-center justify-between border-b border-[var(--color-border-light)] py-3">
+            <dt className="text-[var(--color-muted-foreground)]">Platform</dt>
             <dd className="flex flex-wrap justify-end gap-2 text-lg">
               {platforms.map((platform) => (
                 <span
@@ -673,16 +739,16 @@ export function GameDetailSidebar({
             </dd>
           </div>
         )}
-        <div className="flex w-full justify-between gap-6 border-b border-white/15 py-3">
-          <dt className="text-muted-foreground">Developer</dt>
+        <div className="flex w-full justify-between gap-6 border-b border-[var(--color-border-light)] py-3">
+          <dt className="text-[var(--color-muted-foreground)]">Developer</dt>
           <dd className="text-right">{developer.studioName}</dd>
         </div>
-        <div className="flex w-full justify-between gap-6 border-b border-white/15 py-3">
-          <dt className="text-muted-foreground">Publisher</dt>
+        <div className="flex w-full justify-between gap-6 border-b border-[var(--color-border-light)] py-3">
+          <dt className="text-[var(--color-muted-foreground)]">Publisher</dt>
           <dd className="text-right">{publisher}</dd>
         </div>
-        <div className="flex w-full justify-between gap-6 border-b border-white/15 py-3">
-          <dt className="text-muted-foreground">Release Date</dt>
+        <div className="flex w-full justify-between gap-6 border-b border-[var(--color-border-light)] py-3">
+          <dt className="text-[var(--color-muted-foreground)]">Release Date</dt>
           <dd className="text-right">
             {new Date(releaseDate).toLocaleDateString("en-US", {
               year: "numeric",
@@ -692,14 +758,14 @@ export function GameDetailSidebar({
           </dd>
         </div>
         {websiteUrl && (
-          <div className="flex w-full justify-between gap-6 border-b border-white/15 py-3">
-            <dt className="text-muted-foreground">Website</dt>
+          <div className="flex w-full justify-between gap-6 border-b border-[var(--color-border-light)] py-3">
+            <dt className="text-[var(--color-muted-foreground)]">Website</dt>
             <dd className="min-w-0 text-right">
               <a
                 href={websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="break-all text-highlight hover:underline focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="break-all text-[var(--color-brand)] hover:underline focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
               >
                 {websiteUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")}
               </a>
@@ -715,9 +781,10 @@ export function GameDetailSidebar({
 /*  GameDetailSystemRequirements                                        */
 /* ------------------------------------------------------------------ */
 
-export type GameDetailSystemRequirementsProps = HTMLAttributes<HTMLDivElement> & {
-  requirements: GameDetailSystemRequirement[];
-};
+export type GameDetailSystemRequirementsProps =
+  HTMLAttributes<HTMLDivElement> & {
+    requirements: GameDetailSystemRequirement[];
+  };
 
 export function GameDetailSystemRequirements({
   requirements,
@@ -758,10 +825,10 @@ export function GameDetailSystemRequirements({
               role="tab"
               aria-selected={idx === activeTab}
               className={cn(
-                "flex min-h-10 items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "flex min-h-10 items-center gap-1.5 border px-3 py-1.5 text-sm font-medium transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]",
                 idx === activeTab
-                  ? "bg-foreground/15 text-foreground"
-                  : "text-foreground/50 hover:bg-foreground/5 hover:text-foreground/80",
+                  ? "border-[var(--color-brand)] text-[var(--color-foreground)]"
+                  : "border-transparent text-[var(--color-muted-foreground)] hover:border-[var(--color-border-light)] hover:text-[var(--color-foreground)]",
               )}
             >
               {platformIcon(req.platform)}
@@ -771,12 +838,14 @@ export function GameDetailSystemRequirements({
         </div>
       )}
 
-      <div className="rounded-2xl bg-card p-6 sm:p-10">
+      <div className="border border-[var(--color-border-light)] p-6 sm:p-10">
         <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {specs.map(({ title, description }) => (
             <div key={title} className="flex flex-col gap-1">
-              <dt className="text-foreground/50">{title}</dt>
-              <dd className="text-xl text-foreground">{description}</dd>
+              <dt className="text-[var(--color-muted-foreground)]">{title}</dt>
+              <dd className="text-xl text-[var(--color-foreground)]">
+                {description}
+              </dd>
             </div>
           ))}
         </dl>
