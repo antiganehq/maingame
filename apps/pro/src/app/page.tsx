@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { appName, brandCopy, proNavigation } from "@maingame/brand";
-import { Button, Card, CardDescription, CardTitle } from "@maingame/ui";
+import { Button, Card, CardDescription, CardTitle } from "@maingame/components";
 import { CampaignStatus, UserRole } from "@maingame/types";
 import { formatDots } from "@maingame/utils";
 

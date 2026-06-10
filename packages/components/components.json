@@ -10,9 +10,9 @@
     "cssVariables": true
   },
   "aliases": {
-    "components": "@maingame/ui",
+    "components": "@maingame/components",
     "utils": "@maingame/utils",
-    "ui": "@maingame/ui"
+    "ui": "@maingame/components"
   },
   "iconLibrary": "lucide"
 }

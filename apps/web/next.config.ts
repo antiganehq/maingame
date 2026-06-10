@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     "@maingame/brand",
     "@maingame/styles",
     "@maingame/types",
-    "@maingame/ui",
+    "@maingame/components",
     "@maingame/utils",
   ],
   images: {

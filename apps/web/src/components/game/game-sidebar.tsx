@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Badge } from "@maingame/ui";
+import { Badge } from "@maingame/components";
 import { formatDots } from "@maingame/utils";
 
 interface GameSidebarProps {

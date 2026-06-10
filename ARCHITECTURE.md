@@ -13,7 +13,7 @@ apps/
   api/      Backend API and business logic
 
 packages/
-  ui/          Shared UI primitives
+  components/  Shared UI components (atomic ui/ + composite common/)
   db/          Prisma schema, Prisma client, Supabase helpers
   types/       Shared TypeScript domain types
   validators/  Shared Zod validation schemas
@@ -84,7 +84,7 @@ Responsibilities:
 
 Allowed imports:
 
-- `@maingame/ui`
+- `@maingame/components`
 - `@maingame/brand`
 - `@maingame/types`
 - `@maingame/validators`
@@ -116,7 +116,7 @@ Responsibilities:
 
 Allowed imports:
 
-- `@maingame/ui`
+- `@maingame/components`
 - `@maingame/brand`
 - `@maingame/types`
 - `@maingame/validators`
@@ -166,9 +166,9 @@ Rules:
 
 ## Shared Package Responsibilities
 
-## packages/ui
+## packages/components
 
-Shared UI primitives and shadcn/ui-compatible components.
+Shared UI components and shadcn/ui-compatible primitives. Organized as `src/ui/` for atomic components and `src/common/` for composite components.
 
 Rules:
 
