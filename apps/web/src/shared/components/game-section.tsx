@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { GameCard } from "./game-card";
+import { CatalogRow, GameCard, SectionHeading } from "@maingame/components";
 
 const MOCK_GAMES = [
   {
@@ -92,62 +90,13 @@ const MOCK_GAMES = [
 ];
 
 export function GameSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const scrollAmount = 320;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <section className="px-4 sm:px-6 lg:px-8 py-8">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-(--color-foreground) text-2xl sm:text-xl">
-              <span className="text-(--color-brand) font-display">
-                Categories{" "}
-              </span>
-              <span>we think you&apos;ll like</span>
-            </h2>
-          </div>
-
-          <div className="flex gap-2">
-            <button
-              onClick={() => scroll("left")}
-              className="p-2 bg-[var(--color-neutral-100)] hover:bg-[var(--color-neutral-200)] text-[var(--color-foreground)] transition-colors"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              className="p-2 bg-[var(--color-neutral-100)] hover:bg-[var(--color-neutral-200)] text-[var(--color-foreground)] transition-colors"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        <div
-          ref={scrollRef}
-          className="flex gap-3 sm:gap-4 overflow-x-auto p-2 -m-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {MOCK_GAMES.map((game) => (
-            <div
-              key={game.slug}
-              className="flex-shrink-0 w-[calc((100%-2.25rem)/4)] sm:w-[calc((100%-4rem)/5)] md:w-[calc((100%-5rem)/6)] lg:w-[calc((100%-6rem)/7)]"
-            >
-              <GameCard {...game} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <CatalogRow
+      heading={
+        <SectionHeading text1="Categories" text2="we think you'll like" />
+      }
+      items={MOCK_GAMES}
+      renderItem={(item) => <GameCard {...item} />}
+    />
   );
 }

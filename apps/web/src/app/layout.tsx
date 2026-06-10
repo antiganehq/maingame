@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../../../../packages/styles/src/globals.css";
 import { appName, tagline } from "@maingame/brand";
-import Navbar from "@/components/common/navbar";
-import { Footer } from "@/components/common/footer";
+import Navbar from "@/shared/components/common/navbar";
+import { Footer } from "@maingame/components";
 
 export const metadata: Metadata = {
   title: appName,

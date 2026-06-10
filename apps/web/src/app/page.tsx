@@ -1,7 +1,7 @@
-import { Hero12 } from "@/components/hero-12";
-import { LiveSection } from "@/components/live-section";
-import { GameSection } from "@/components/game-section";
-import { Carousel } from "@/components/carousel";
+import { Hero12 } from "@/shared/components/hero-12";
+import { LiveSection } from "@/shared/components/live-section";
+import { GameSection } from "@/shared/components/game-section";
+import { Carousel } from "@/shared/components/carousel";
 
 export default function Home() {
   return (

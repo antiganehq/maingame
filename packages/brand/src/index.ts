@@ -28,18 +28,12 @@ export const socialLinks = {
 
 export const publicNavigation = [
   { label: "Games", href: "/games" },
-  { label: "Streaming Today", href: "/today" },
-  { label: "Streamers", href: "/streamers" },
-  { label: "Archives", href: "/archives" }
+  { label: "Streaming Today", href: "/streamers" },
 ] as const;
 
 export const proNavigation = [
-  { label: "Dashboard", href: "/" },
   { label: "Games", href: "/games" },
-  { label: "Campaigns", href: "/campaigns" },
   { label: "Streamers", href: "/streamers" },
-  { label: "Dots", href: "/dots" },
-  { label: "Settings", href: "/settings" }
 ] as const;
 
 export const ctaCopy = {

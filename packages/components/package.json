@@ -14,7 +14,11 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@maingame/utils": "workspace:*"
+    "@maingame/types": "workspace:*",
+    "@maingame/utils": "workspace:*",
+    "lucide-react": "^1.17.0",
+    "motion": "^12.40.0",
+    "react-icons": "^5.6.0"
   },
   "devDependencies": {
     "@maingame/config": "workspace:*",

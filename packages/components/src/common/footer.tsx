@@ -78,7 +78,7 @@ export function Footer() {
       <div className="w-full py-10 px-4 sm:px-6 lg:px-8 bg-[var(--color-section)]">
         <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2 select-none">
-            <span className="text-xl font-medium text-[var(--color-section-foreground)] font-display">
+            <span className="text-xl text-[var(--color-section-foreground)] font-display uppercase">
               maingame
             </span>
           </div>

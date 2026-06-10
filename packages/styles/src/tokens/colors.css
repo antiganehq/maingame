@@ -81,7 +81,7 @@ html.dark {
   --color-muted: var(--color-neutral-500);
   --color-muted-foreground: var(--color-neutral-400);
 
-  --color-border: var(--color-neutral-600);
+  --color-border: var(--color-neutral-800);
   --color-border-light: var(--color-neutral-700);
 
   --color-button-secondary: var(--color-neutral-700);
