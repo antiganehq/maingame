@@ -1,0 +1,55 @@
+/* ======================================================
+   PeridotVault dark theme — scoped to .peridotvault-vault
+   Exact copy of PeridotVault token/colors.css + token/shadow.css
+   ====================================================== */
+
+/* Global @theme — registers PeridotVault tokens as Tailwind utilities */
+@theme inline {
+  --color-background: var(--vlt-bg);
+  --color-foreground: var(--vlt-fg);
+  --color-surface: var(--vlt-surface);
+  --color-surface-foreground: var(--vlt-surface-fg);
+  --color-card: var(--vlt-card);
+  --color-card-foreground: var(--vlt-card-fg);
+  --color-accent: var(--vlt-accent);
+  --color-highlight: var(--vlt-highlight);
+  --color-accent-card: var(--vlt-accent-card);
+  --color-button: var(--vlt-button);
+  --color-border: var(--vlt-border);
+  --color-label: var(--vlt-label);
+  --color-muted: var(--vlt-muted);
+  --color-muted-foreground: var(--vlt-muted-fg);
+  --shadow-arise-sm: var(--vlt-arise-sm);
+  --shadow-flat-sm: var(--vlt-flat-sm);
+  --shadow-sunken-sm: var(--vlt-sunken-sm);
+}
+
+/* Scoped dark values — only active inside .peridotvault-vault */
+.peridotvault-vault {
+  /* Brand */
+  --vlt-accent: #349b65;
+  --vlt-highlight: #87ee83;
+  --vlt-accent-card: #349b6650;
+
+  /* Semantics */
+  --vlt-bg: #1c1f1d;
+  --vlt-fg: white;
+  --vlt-surface: #1a1a1a;
+  --vlt-surface-fg: white;
+  --vlt-card: #0a0c0b;
+  --vlt-card-fg: white;
+  --vlt-button: #414141;
+  --vlt-border: #ffffff28;
+  --vlt-label: #ffffff60;
+  --vlt-muted: #363636;
+  --vlt-muted-fg: rgb(125, 125, 125);
+
+  /* Neumorphic shadows */
+  --vlt-arise-sm:
+    inset 2px 2px 5px #0c0d0c,
+    inset -2px -2px 5px #2c312e,
+    2px 2px 5px #0c0d0c,
+    -2px -2px 5px #2c312e;
+  --vlt-flat-sm: 3px 3px 6px #0c0d0c, -3px -3px 6px #2c312e;
+  --vlt-sunken-sm: inset 5px 5px 10px #0c0d0c, inset -5px -5px 10px #2c312e;
+}

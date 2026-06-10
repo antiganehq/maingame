@@ -6,3 +6,5 @@ export * from "./ui/textarea";
 export * from "./common/card";
 export * from "./common/dialog";
 export * from "./common/form";
+export * from "./common/game-detail";
+export * from "./common/game-detail-preview";

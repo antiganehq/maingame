@@ -2,6 +2,7 @@
 @import "../../../../packages/styles/src/globals.css";
 
 @source "../../../../packages/ui/src";
+@source "../../../../packages/components/src";
 
 * {
   box-sizing: border-box;
