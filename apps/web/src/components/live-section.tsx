@@ -4,7 +4,8 @@ const MOCK_STREAMERS = [
   {
     streamerName: "BayuPlays",
     streamerSlug: "bayuplays",
-    streamTitle: "Wayward Warriors — Road to Rank 1 with Viewers! Come Join the Chaos",
+    streamTitle:
+      "Wayward Warriors — Road to Rank 1 with Viewers! Come Join the Chaos",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop",
     profileUrl:
@@ -15,7 +16,8 @@ const MOCK_STREAMERS = [
   {
     streamerName: "MeiCasts",
     streamerSlug: "meicasts",
-    streamTitle: "Late Night Kopi & Kata — Chill vibes, cozy puzzles, let's relax",
+    streamTitle:
+      "Late Night Kopi & Kata — Chill vibes, cozy puzzles, let's relax",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1552820728-8b83bb6b2cf0?q=80&w=800&auto=format&fit=crop",
     profileUrl:
@@ -26,7 +28,8 @@ const MOCK_STREAMERS = [
   {
     streamerName: "DimasArena",
     streamerSlug: "dimasarena",
-    streamTitle: "Neon Siege Tournament Finals — $500 Prize Pool! Who Takes It?",
+    streamTitle:
+      "Neon Siege Tournament Finals — $500 Prize Pool! Who Takes It?",
     thumbnailUrl:
       "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop",
     profileUrl:
@@ -95,10 +98,12 @@ export function LiveSection() {
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-8">
       <div className="max-w-[1400px] mx-auto">
-        <h2 className="text-[var(--color-foreground)] text-2xl sm:text-3xl font-bold">
-          Currently Live
-        </h2>
-        <div className="w-12 h-1 bg-[var(--color-brand)] rounded-full mt-2 mb-8" />
+        <div className="mb-4">
+          <h2 className="text-(--color-foreground) text-2xl sm:text-xl">
+            <span className="text-(--color-brand) font-display"> Live </span>
+            <span> Now</span>
+          </h2>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {MOCK_STREAMERS.map((streamer) => (

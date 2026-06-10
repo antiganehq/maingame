@@ -101,7 +101,7 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
               scale: imgIndex === idx ? 0.95 : 0.85,
             }}
             transition={SPRING_OPTIONS}
-            className="aspect-video w-[60%] shrink-0 rounded-xl bg-neutral-800 object-cover"
+            className="aspect-video w-[60%] shrink-0 bg-neutral-800 object-cover"
           />
         );
       })}
@@ -123,7 +123,7 @@ const Dots = ({
           <button
             key={idx}
             onClick={() => setImgIndex(idx)}
-            className={`h-3 w-3 rounded-full transition-colors ${
+            className={`h-3 w-3 transition-colors ${
               idx === imgIndex
                 ? "bg-[var(--color-foreground)]"
                 : "bg-[var(--color-muted)]"

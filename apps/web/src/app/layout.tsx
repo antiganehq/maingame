@@ -15,8 +15,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var stored = localStorage.getItem("theme");
+                  var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                  if (stored === "dark" || (!stored && prefersDark)) {
+                    document.documentElement.classList.add("dark");
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className={`text-[var(--color-foreground)]`}>
         <Navbar />
         {children}
         <Footer />

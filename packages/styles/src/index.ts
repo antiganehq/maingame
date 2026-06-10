@@ -1,5 +1,6 @@
 export {
   colors,
+  fontFamily,
   spacing,
   fontSize,
   fontWeight,

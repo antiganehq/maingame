@@ -52,6 +52,11 @@ export const colors = {
   overlayStrong: "var(--color-overlay-strong)",
 } as const;
 
+export const fontFamily = {
+  sans: "var(--font-sans)",
+  display: "var(--font-display)",
+} as const;
+
 export const spacing = {
   1: "0.25rem",
   2: "0.5rem",

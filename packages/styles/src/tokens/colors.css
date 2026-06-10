@@ -63,3 +63,31 @@
   --color-overlay: rgba(0, 0, 0, 0.3);
   --color-overlay-strong: rgba(0, 0, 0, 0.7);
 }
+
+html.dark {
+  --color-background: var(--color-neutral-950);
+  --color-foreground: var(--color-neutral-50);
+
+  --color-section: var(--color-neutral-800);
+  --color-section-foreground: var(--color-white);
+
+  --color-card: var(--color-neutral-800);
+  --color-card-foreground: var(--color-white);
+
+  --color-surface: var(--color-neutral-900);
+  --color-surface-foreground: var(--color-white);
+  --color-surface-hover: var(--color-neutral-800);
+
+  --color-muted: var(--color-neutral-500);
+  --color-muted-foreground: var(--color-neutral-400);
+
+  --color-border: var(--color-neutral-600);
+  --color-border-light: var(--color-neutral-700);
+
+  --color-button-secondary: var(--color-neutral-700);
+  --color-button-secondary-hover: var(--color-neutral-600);
+
+  --color-overlay-dim: rgba(0, 0, 0, 0.3);
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-overlay-strong: rgba(0, 0, 0, 0.8);
+}

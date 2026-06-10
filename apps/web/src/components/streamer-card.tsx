@@ -28,7 +28,7 @@ export function StreamerCard({
   return (
     <Link
       href={`/streamers/${streamerSlug}`}
-      className="group block rounded-xl overflow-hidden hover:ring-2 hover:ring-[var(--color-brand)] transition-all duration-200 hover:-translate-y-1"
+      className="group block overflow-hidden hover:ring-2 hover:ring-[var(--color-brand)] transition-all duration-200 hover:-translate-y-1"
     >
       <div className="aspect-video relative overflow-hidden">
         <Image

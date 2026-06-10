@@ -66,46 +66,44 @@ export function Footer() {
               Connect
             </h3>
             <a
-              href="mailto:hello@quotient.com"
+              href="mailto:hello@maingame.fun"
               className="text-2xl font-medium tracking-tight text-[var(--color-foreground)] hover:text-[var(--color-muted-foreground)] transition-colors break-words"
             >
-              hello@quotient.com
+              hello@maingame.fun
             </a>
           </div>
         </div>
       </section>
 
-      <div className="w-full py-10 px-4 sm:px-6 lg:px-8 bg-[var(--color-foreground)]">
+      <div className="w-full py-10 px-4 sm:px-6 lg:px-8 bg-[var(--color-section)]">
         <div className="max-w-[1400px] mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2 select-none">
-            <img
-              src="/mock-logos/quotient.svg"
-              alt="Quotient"
-              className="h-8 w-auto invert"
-            />
+            <span className="text-xl font-medium text-[var(--color-section-foreground)] font-display">
+              maingame
+            </span>
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
-            <span className="text-sm font-medium tracking-tight text-[var(--color-background)]">
-              © 2025 Quotient Labs - All Rights Reserved
+            <span className="text-sm font-medium tracking-tight text-[var(--color-section-foreground)]">
+              © 2025 maingame - All Rights Reserved
             </span>
 
             <div className="flex items-center gap-6">
               <a
                 href="#"
-                className="text-[var(--color-background)] hover:text-[var(--color-muted)] transition-colors"
+                className="text-[var(--color-section-foreground)] hover:text-[var(--color-muted)] transition-colors"
               >
                 <FaLinkedin className="w-5 h-5" strokeWidth={2.5} />
               </a>
               <a
                 href="#"
-                className="text-[var(--color-background)] hover:text-[var(--color-muted)] transition-colors"
+                className="text-[var(--color-section-foreground)] hover:text-[var(--color-muted)] transition-colors"
               >
                 <FaTwitter className="w-5 h-5" strokeWidth={2.5} />
               </a>
               <a
                 href="#"
-                className="text-[var(--color-background)] hover:text-[var(--color-muted)] transition-colors"
+                className="text-[var(--color-section-foreground)] hover:text-[var(--color-muted)] transition-colors"
               >
                 <SquarePen className="w-5 h-5" strokeWidth={2.5} />
               </a>

@@ -1,13 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Bell, ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    const dark = stored === "dark" || (!stored && prefersDark);
+    setIsDark(dark);
+    document.documentElement.classList.toggle("dark", dark);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+    document.documentElement.classList.toggle("dark", next);
+  };
 
   const menuItems = {
     products: [
@@ -40,9 +59,9 @@ export default function Navbar() {
           {/* Left Side */}
           <div className="flex items-center gap-8">
             {/* Logo */}
-            <a href="#" className="text-xl font-medium z-50">
-              Flowbase
-            </a>
+            <Link href="/" className="text-xl font-medium z-50 font-display">
+              maingame
+            </Link>
 
             {/* Navigation Items */}
             <div className="hidden items-center gap-1 lg:flex">
@@ -52,7 +71,7 @@ export default function Navbar() {
                 onMouseEnter={() => setActiveMenu("products")}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
+                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
                   Products
                   <ChevronDown className="h-4 w-4" />
                 </button>
@@ -67,7 +86,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute left-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-[var(--color-border-light)] bg-[var(--color-background)] shadow-lg"
+                        className="absolute left-0 top-full z-50 mt-2 w-80 overflow-hidden border border-[var(--color-border-light)] bg-[var(--color-background)] shadow-lg"
                       >
                         <div className="p-2">
                           {menuItems.products.map((item, index) => (
@@ -80,7 +99,7 @@ export default function Navbar() {
                                 duration: 0.2,
                                 delay: index * 0.03,
                               }}
-                              className="block rounded-md px-4 py-2.5 text-sm text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
+                              className="block px-4 py-2.5 text-sm text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
                             >
                               {item.name}
                             </motion.a>
@@ -98,7 +117,7 @@ export default function Navbar() {
                 onMouseEnter={() => setActiveMenu("solutions")}
                 onMouseLeave={() => setActiveMenu(null)}
               >
-                <button className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
+                <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]">
                   Solutions
                   <ChevronDown className="h-4 w-4" />
                 </button>
@@ -113,7 +132,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="absolute left-0 top-full z-50 mt-2 w-80 overflow-hidden rounded-xl border border-[var(--color-border-light)] bg-[var(--color-background)] shadow-lg"
+                        className="absolute left-0 top-full z-50 mt-2 w-80 overflow-hidden border border-[var(--color-border-light)] bg-[var(--color-background)] shadow-lg"
                       >
                         <div className="p-2">
                           {menuItems.solutions.map((item, index) => (
@@ -126,7 +145,7 @@ export default function Navbar() {
                                 duration: 0.2,
                                 delay: index * 0.03,
                               }}
-                              className="block rounded-md px-4 py-2.5 text-sm text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
+                              className="block px-4 py-2.5 text-sm text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
                             >
                               {item.name}
                             </motion.a>
@@ -141,7 +160,7 @@ export default function Navbar() {
               {/* Simple Link - Pricing */}
               <a
                 href="#"
-                className="rounded-md px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] no-underline"
+                className="px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] no-underline"
               >
                 Pricing
               </a>
@@ -150,28 +169,33 @@ export default function Navbar() {
 
           {/* Right Side */}
           <div className="flex items-center gap-3">
-            {/* Desktop: Notification Icon */}
+            {/* Desktop: Theme Toggle */}
             <button
-              className="hidden h-10 w-10 items-center justify-center rounded-md text-[var(--color-muted-foreground)] lg:flex"
-              aria-label="Notifications"
+              onClick={toggleTheme}
+              className="hidden h-10 w-10 items-center justify-center text-[var(--color-muted-foreground)] lg:flex"
+              aria-label="Toggle theme"
             >
-              <Bell className="h-5 w-5" />
+              {isDark ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
             </button>
 
             {/* Desktop: Sign In Button */}
-            <button className="hidden rounded-md border border-[var(--color-border-light)] px-4 py-2 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)] lg:block">
+            <button className="hidden border border-[var(--color-border-light)] px-4 py-2 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)] lg:block">
               Sign In
             </button>
 
-            {/* Desktop: Try it FREE Button */}
-            <button className="hidden rounded-md bg-[var(--color-foreground)] px-5 py-2 text-sm font-medium text-[var(--color-background)] hover:opacity-80 lg:block">
-              Try it FREE
+            {/* Desktop: Get Pro Account Button */}
+            <button className="hidden bg-[var(--color-foreground)] px-5 py-2 text-sm font-medium text-[var(--color-background)] hover:opacity-80 lg:block">
+              Get Pro Account
             </button>
 
             {/* Mobile: Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--color-foreground)] text-[var(--color-background)] lg:hidden z-50"
+              className="flex h-10 w-10 items-center justify-center bg-[var(--color-foreground)] text-[var(--color-background)] lg:hidden z-50"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? (
@@ -233,7 +257,7 @@ export default function Navbar() {
                             <a
                               key={item.name}
                               href={item.href}
-                              className="block rounded-md px-4 py-3 text-base text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
+                              className="block px-4 py-3 text-base text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
                             >
                               {item.name}
                             </a>
@@ -277,7 +301,7 @@ export default function Navbar() {
                             <a
                               key={item.name}
                               href={item.href}
-                              className="block rounded-md px-4 py-3 text-base text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
+                              className="block px-4 py-3 text-base text-[var(--color-muted-foreground)] hover:bg-[var(--color-neutral-100)] no-underline"
                             >
                               {item.name}
                             </a>
@@ -306,7 +330,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.4 }}
-                  className="w-full rounded-md border border-[var(--color-border-light)] px-4 py-3 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)]"
+                  className="w-full border border-[var(--color-border-light)] px-4 py-3 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)]"
                 >
                   Sign In
                 </motion.button>
@@ -314,9 +338,9 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.5 }}
-                  className="w-full rounded-md bg-[var(--color-foreground)] px-4 py-3 text-sm font-medium text-[var(--color-background)] hover:opacity-80"
+                  className="w-full bg-[var(--color-foreground)] px-4 py-3 text-sm font-medium text-[var(--color-background)] hover:opacity-80"
                 >
-                  Try it FREE
+                  Get Pro Account
                 </motion.button>
               </div>
             </div>

@@ -1,4 +1,19 @@
+@font-face {
+  font-family: "NTBrickSans";
+  src: url("./../../assets/fonts/NTBrickSans.otf");
+}
+
+.font-display {
+  font-family: NTBrickSans;
+  /* text-transform: uppercase; */
+}
+
 :root {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  --font-display: "NTBrickSans", ui-sans-serif, system-ui, sans-serif;
+
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
