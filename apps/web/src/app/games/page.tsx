@@ -14,7 +14,23 @@ export default function GamesPage() {
     <main className="min-h-screen px-6 py-12">
       <div className="mx-auto max-w-[1400px] flex flex-col gap-4">
         <SectionHeading text1="Streaming" text2="Today" />
-        <CatalogGrid items={games} renderItem={(item) => <GameCard {...item} />} />
+        <CatalogGrid
+          items={games}
+          renderItem={(g) => (
+            <GameCard
+              title={g.title}
+              slug={g.slug}
+              coverImage={g.coverImage}
+              streamerCount={g.streamerCount}
+              meta={
+                <>
+                  {g.genre}
+                  {g.platforms.length > 0 && ` · ${g.platforms.join(", ")}`}
+                </>
+              }
+            />
+          )}
+        />
       </div>
     </main>
   );

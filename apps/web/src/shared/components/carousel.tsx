@@ -22,7 +22,7 @@ const SPRING_OPTIONS = {
   mass: 3,
   stiffness: 400,
   damping: 50,
-};
+} as const;
 
 export const Carousel = () => {
   const [imgIndex, setImgIndex] = useState(0);

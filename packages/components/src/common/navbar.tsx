@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 type NavDropdownItem = { label: string; href: string };
 
@@ -11,7 +12,11 @@ type NavItem =
   | { kind: "link"; label: string; href: string }
   | { kind: "dropdown"; label: string; items: NavDropdownItem[] };
 
-type NavAction = { label: string; href: string; variant: "primary" | "secondary" };
+type NavAction = {
+  label: string;
+  href: string;
+  variant: "primary" | "secondary";
+};
 
 export interface NavbarProps {
   brand: ReactNode;
@@ -147,30 +152,21 @@ export function Navbar({
             )}
 
             {/* Desktop: Action Buttons */}
-            {safeActions.map((action) =>
-              action.variant === "primary" ? (
-                <Link
-                  key={action.label}
-                  href={action.href}
-                  className="hidden bg-[var(--color-foreground)] px-5 py-2 text-sm font-medium text-[var(--color-background)] hover:opacity-80 lg:block"
-                >
-                  {action.label}
-                </Link>
-              ) : (
-                <Link
-                  key={action.label}
-                  href={action.href}
-                  className="hidden border border-[var(--color-border-light)] px-4 py-2 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)] lg:block"
-                >
-                  {action.label}
-                </Link>
-              ),
-            )}
+            {safeActions.map((action) => (
+              <Link
+                key={action.label}
+                href={action.href}
+                className="hidden lg:block"
+              >
+                <Button variant={action.variant}>{action.label}</Button>
+              </Link>
+            ))}
 
             {/* Mobile: Menu Button */}
-            <button
+            <Button
+              variant="primary"
+              className="h-10 w-10 p-0 lg:hidden z-50"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-10 w-10 items-center justify-center bg-[var(--color-foreground)] text-[var(--color-background)] lg:hidden z-50"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {mobileMenuOpen ? (
@@ -178,7 +174,7 @@ export function Navbar({
               ) : (
                 <Menu className="h-5 w-5" />
               )}
-            </button>
+            </Button>
           </div>
         </motion.div>
       </div>
@@ -284,7 +280,7 @@ export function Navbar({
                       className={
                         action.variant === "primary"
                           ? "w-full bg-[var(--color-foreground)] px-4 py-3 text-center text-sm font-medium text-[var(--color-background)] hover:opacity-80 no-underline"
-                          : "w-full border border-[var(--color-border-light)] px-4 py-3 text-center text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)] no-underline"
+                          : "w-full border border-[var(--color-border-light)] px-4 py-3 text-center text-sm font-medium text-[var(--color-foreground)] bg-[var(--color-background)] hover:bg-[var(--color-surface-hover)] no-underline"
                       }
                     >
                       {action.label}

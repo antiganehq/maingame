@@ -10,8 +10,8 @@ import {
   SectionHeading,
   CommentsSection,
 } from "@maingame/components";
-import { getGame } from "@/features/game/data/games";
-import type { GameData } from "@/features/game/data/games";
+import { getGame } from "@maingame/db";
+import type { GameData } from "@maingame/db";
 
 function mapToGameDetailData(game: GameData): GameDetailData {
   return {

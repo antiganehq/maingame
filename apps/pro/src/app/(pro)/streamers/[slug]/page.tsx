@@ -12,7 +12,7 @@ import {
 } from "@maingame/components";
 import { CampaignStatus } from "@maingame/types";
 import { formatDots } from "@maingame/utils";
-import { getStreamer } from "@/features/streamer/data/streamer-detail";
+import { getStreamer } from "@maingame/db";
 
 const STATUS_VARIANT: Record<
   string,

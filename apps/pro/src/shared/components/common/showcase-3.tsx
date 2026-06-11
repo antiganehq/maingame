@@ -21,24 +21,24 @@ interface ShowcaseItem {
 const SHOWCASE_ITEMS: ShowcaseItem[] = [
   {
     id: 1,
-    title: "Sea of Stars: Sunset Edition",
-    category: "Best Game #1",
+    title: "Naruto Shippuden",
+    category: "Best Streamer #1",
     image:
-      "https://shared.akamai.steamstatic.com/store_item_assets/steam/spotlights/6bc71f2d54faaffad6051d2f/3f64f3b6b6ceb5fb46e3b53402a589c5031c0669/vertical_capsule_english.png?t=1776185019",
+      "https://cdn.dribbble.com/userupload/46030284/file/8dfdc9a8b09fdbd99b010c1dcb279841.jpg?resize=1024x1693&vertical=center",
   },
   {
     id: 2,
     title: "Cuphead",
-    category: "Best Game #3",
+    category: "Best Streamer #3",
     image:
-      "https://shared.akamai.steamstatic.com/store_item_assets/steam/spotlights/c508bf29be02e523cfd02807/e043d0b4d842830cccf345f76cc4c089c5a343dd/vertical_capsule_english.png?t=1780937738",
+      "https://cdn.dribbble.com/userupload/46029941/file/f3b0e906d38980bf48e008f5542a58b5.jpg?resize=1024x1693&vertical=center",
   },
   {
     id: 3,
-    title: "Monster Hunter Wilds",
-    category: "Best Game #2",
+    title: "Shiratomi Yuuki",
+    category: "Best Streamer #2",
     image:
-      "https://shared.akamai.steamstatic.com/store_item_assets/steam/spotlights/e7f7eef9fb8cc1af041f1d8c/b1eb2fa8d81d7cf8224eddeab6ea54c3b95f1261/vertical_capsule_english.png?t=1778288570",
+      "https://cdn.dribbble.com/userupload/45777759/file/acf14657b38cd25e64bb16b4f201bef8.jpg?resize=1024x1529&vertical=center",
   },
 ];
 

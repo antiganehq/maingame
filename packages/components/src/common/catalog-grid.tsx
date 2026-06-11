@@ -21,7 +21,7 @@ export function CatalogGrid<T extends SlugItem = CatalogCardItem>({
   return (
     <div
       className={cn(
-        "grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6",
+        "grid gap-3 sm:gap-4 grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4",
         className,
       )}
       {...props}
@@ -30,7 +30,10 @@ export function CatalogGrid<T extends SlugItem = CatalogCardItem>({
         renderItem ? (
           <div key={item.slug}>{renderItem(item)}</div>
         ) : (
-          <CatalogCard key={item.slug} {...(item as unknown as CatalogCardItem)} />
+          <CatalogCard
+            key={item.slug}
+            {...(item as unknown as CatalogCardItem)}
+          />
         ),
       )}
     </div>

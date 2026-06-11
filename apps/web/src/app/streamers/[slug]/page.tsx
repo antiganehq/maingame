@@ -7,7 +7,7 @@ import {
   Card,
   StarRatingDisplay,
 } from "@maingame/components";
-import { getStreamer } from "@/features/streamer/data/streamer-detail";
+import { getStreamer } from "@maingame/db";
 
 export async function generateMetadata({
   params,

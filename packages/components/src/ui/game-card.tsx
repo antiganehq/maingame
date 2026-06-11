@@ -1,4 +1,4 @@
-import type { AnchorHTMLAttributes } from "react";
+import type { AnchorHTMLAttributes, ReactNode } from "react";
 import Link from "next/link";
 import { cn } from "@maingame/utils";
 
@@ -7,6 +7,7 @@ export type GameCardProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   slug: string;
   coverImage: string | null;
   streamerCount: number;
+  meta?: ReactNode;
   href?: string;
 };
 
@@ -15,6 +16,7 @@ export function GameCard({
   slug,
   coverImage,
   streamerCount,
+  meta,
   href,
   className,
   ...props
@@ -25,7 +27,7 @@ export function GameCard({
       className={cn("group block", className)}
       {...props}
     >
-      <div className="aspect-[3/4] relative overflow-hidden group-hover:ring-2 group-hover:ring-[var(--color-brand)] transition-all duration-200 group-hover:-translate-y-1">
+      <div className="aspect-video relative overflow-hidden group-hover:ring-2 group-hover:ring-[var(--color-brand)] transition-all duration-200 group-hover:-translate-y-1">
         {coverImage ? (
           <img
             src={coverImage}
@@ -45,6 +47,11 @@ export function GameCard({
         <p className="text-[var(--color-muted-foreground)] text-xs mt-0.5">
           {streamerCount} {streamerCount === 1 ? "streamer" : "streamers"}
         </p>
+        {meta && (
+          <p className="text-[var(--color-muted-foreground)] text-xs mt-0.5 truncate">
+            {meta}
+          </p>
+        )}
       </div>
     </Link>
   );
