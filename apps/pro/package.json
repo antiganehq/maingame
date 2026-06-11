@@ -13,6 +13,7 @@
   "dependencies": {
     "@maingame/brand": "workspace:*",
     "@maingame/components": "workspace:*",
+    "@maingame/db": "workspace:*",
     "@maingame/types": "workspace:*",
     "@maingame/utils": "workspace:*",
     "@react-three/drei": "^10.7.7",

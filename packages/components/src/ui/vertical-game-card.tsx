@@ -1,8 +1,7 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react";
-import Link from "next/link";
 import { cn } from "@maingame/utils";
 
-export type GameCardProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+export type VerticalGameCardProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   title: string;
   slug: string;
   coverImage: string | null;
@@ -11,7 +10,7 @@ export type GameCardProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   href?: string;
 };
 
-export function GameCard({
+export function VerticalGameCard({
   title,
   slug,
   coverImage,
@@ -20,14 +19,14 @@ export function GameCard({
   href,
   className,
   ...props
-}: GameCardProps) {
+}: VerticalGameCardProps) {
   return (
     <a
       href={href ?? `/games/${slug}`}
       className={cn("group block", className)}
       {...props}
     >
-      <div className="aspect-video relative overflow-hidden group-hover:ring-2 group-hover:ring-[var(--color-brand)] transition-all duration-200 group-hover:-translate-y-1">
+      <div className="aspect-[2/3] relative overflow-hidden group-hover:ring-2 group-hover:ring-[var(--color-brand)] transition-all duration-200 group-hover:-translate-y-1">
         {coverImage ? (
           <img
             src={coverImage}

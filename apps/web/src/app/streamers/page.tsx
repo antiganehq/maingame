@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CatalogGrid, StreamerCard, SectionHeading } from "@maingame/components";
 import { Badge } from "@maingame/components";
 import { StreamPlatform } from "@maingame/types";
-import { getStreamingStreamers } from "@/features/streamer/data/streamers";
+import { getStreamingStreamers } from "@maingame/db";
 
 function formatViewers(n: number): string {
   if (n >= 1000) return `${(n / 1000).toFixed(1)}K`;

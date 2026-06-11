@@ -3,6 +3,7 @@
 import { useRef, type HTMLAttributes, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@maingame/utils";
+import { Button } from "../ui/button";
 import { CatalogCard, type CatalogCardItem } from "./catalog-card";
 
 type SlugItem = { slug: string };
@@ -44,20 +45,22 @@ export function CatalogRow<T extends SlugItem = CatalogCardItem>({
           {heading ?? <div />}
 
           <div className="flex gap-2">
-            <button
+            <Button
+              variant="secondary"
+              className="size-10 p-0"
               onClick={() => scroll("left")}
-              className="p-2 bg-[var(--color-neutral-100)] hover:bg-[var(--color-neutral-200)] text-[var(--color-foreground)] transition-colors"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
+            </Button>
+            <Button
+              variant="secondary"
+              className="size-10 p-0"
               onClick={() => scroll("right")}
-              className="p-2 bg-[var(--color-neutral-100)] hover:bg-[var(--color-neutral-200)] text-[var(--color-foreground)] transition-colors"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-5 h-5" />
-            </button>
+            </Button>
           </div>
         </div>
 

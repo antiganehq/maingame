@@ -20,8 +20,7 @@ const proData: NavbarProps = {
     href: n.href,
   })),
   actions: [
-    { label: "Dashboard", href: "/", variant: "secondary" as const },
-    { label: "Profile", href: "/profile", variant: "primary" as const },
+    { label: "My Dashboard", href: "/dashboard", variant: "primary" as const },
   ],
 };
 

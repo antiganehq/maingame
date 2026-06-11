@@ -14,6 +14,7 @@
     "@maingame/brand": "workspace:*",
     "@maingame/types": "workspace:*",
     "@maingame/components": "workspace:*",
+    "@maingame/db": "workspace:*",
     "@maingame/utils": "workspace:*",
     "lucide-react": "^1.17.0",
     "motion": "^12.40.0",

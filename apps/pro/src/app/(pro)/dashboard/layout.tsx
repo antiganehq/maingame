@@ -1,0 +1,56 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
+import { cn } from "@maingame/utils";
+
+const navItems = [
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "My Games", href: "/dashboard/games" },
+  { label: "My Streams", href: "/dashboard/streams" },
+];
+
+export default function ProfileLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  return (
+    <main>
+      <div className="mx-auto max-w-[1400px] flex min-h-[calc(100vh-8rem)]">
+        <aside className="w-56 shrink-0 pr-4 pt-4 flex flex-col">
+          <h3 className="sr-only">Dashboard</h3>
+          <nav className="grid gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "px-3 py-2 text-sm transition-colors",
+                  pathname === item.href
+                    ? "btn-primary"
+                    : "text-[var(--color-muted-foreground)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-foreground)]",
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <button
+            onClick={() => {
+              window.sessionStorage.removeItem("isAuthenticated");
+              router.push("/auth");
+            }}
+            className="px-3 py-2 text-sm text-left text-red-500 hover:text-red-600 transition-colors"
+          >
+            Sign Out
+          </button>
+        </aside>
+        <div className="flex-1 min-w-0">{children}</div>
+      </div>
+    </main>
+  );
+}
