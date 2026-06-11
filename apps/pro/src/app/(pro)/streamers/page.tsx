@@ -3,6 +3,7 @@ import {
   CatalogGrid,
   StreamerCard,
   SectionHeading,
+  StreamerRankList,
 } from "@maingame/components";
 import { StreamPlatform } from "@maingame/types";
 import { availableStreamers } from "@maingame/db";
@@ -33,8 +34,16 @@ export default function StreamersPage() {
   return (
     <main className="min-h-screen px-6 py-12">
       <div className="mx-auto max-w-[1400px] flex max-md:flex-col gap-8">
-        <div className="md:order-2 md:max-w-90">
+        <div className="md:order-2 md:max-w-90 flex flex-col gap-4">
           <Showcase3 />
+          <StreamerRankList
+            streamers={availableStreamers.slice(3, 10).map((s, i) => ({
+              rank: i + 4,
+              displayName: s.displayName,
+              slug: s.slug,
+              avatarUrl: s.avatarUrl,
+            }))}
+          />
         </div>
 
         <section className="flex flex-col md:order-1 gap-4 w-full">

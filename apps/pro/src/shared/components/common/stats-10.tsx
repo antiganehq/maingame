@@ -111,7 +111,7 @@ export default function Stats10({ cards }: { cards: StatCardData[] }) {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * i }}
               whileHover={{ y: -4 }}
-              className="rounded-2xl p-6 sm:p-8 flex flex-col justify-between min-h-[200px] sm:min-h-[240px]"
+              className="p-6 sm:p-8 flex flex-col justify-between min-h-[200px] sm:min-h-[240px]"
               style={{ backgroundColor: c.bg, color: c.fg }}
             >
               <span className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight tabular-nums">

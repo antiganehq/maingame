@@ -16,6 +16,7 @@ export * from "./common/catalog-card";
 export * from "./common/catalog-row";
 export * from "./common/catalog-grid";
 export * from "./common/comments";
+export * from "./common/streamer-rank-list";
 export { Navbar } from "./common/navbar";
 export type { NavbarProps } from "./common/navbar";
 export * from "./common/footer";

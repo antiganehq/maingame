@@ -97,40 +97,6 @@ export default async function GameDetailPage({
 
       <GameDetailContent>
         <div className="lg:flex-1 lg:min-w-0 space-y-8">
-          {game.campaignObjective && (
-            <section>
-              <h2 className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-muted-foreground)] mb-3">
-                Campaign Details
-              </h2>
-              <div className="bg-[var(--color-surface)] border border-[var(--color-border-light)] p-5 space-y-4">
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-muted-foreground)] mb-1">
-                    Objective
-                  </p>
-                  <p className="text-sm text-[var(--color-muted-foreground)] leading-relaxed">
-                    {game.campaignObjective}
-                  </p>
-                </div>
-                {(game.budgetMinDots != null || game.budgetMaxDots != null) && (
-                  <div>
-                    <p className="text-[11px] uppercase tracking-[0.15em] text-[var(--color-muted-foreground)] mb-1">
-                      Campaign Budget
-                    </p>
-                    <p className="text-sm font-semibold text-[var(--color-foreground)]">
-                      {game.budgetMinDots != null
-                        ? `${game.budgetMinDots.toLocaleString()} Dots`
-                        : "\u2014"}
-                      {" \u2014 "}
-                      {game.budgetMaxDots != null
-                        ? `${game.budgetMaxDots.toLocaleString()} Dots`
-                        : "\u2014"}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
-
           <section>
             <SectionHeading text1="About" text2="This Game" />
           </section>
