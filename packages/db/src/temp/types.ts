@@ -48,6 +48,7 @@ export interface StreamerDetailData {
   primaryPlatform: StreamPlatform;
   channelUrl: string;
   avatarUrl: string | null;
+  bannerUrl: string | null;
   bio: string;
   memberSince: string;
   gender?: string;

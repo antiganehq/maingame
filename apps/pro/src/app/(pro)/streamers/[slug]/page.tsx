@@ -40,7 +40,7 @@ export default async function ProStreamerDetailPage({
 
   return (
     <main className="min-h-screen text-[var(--color-foreground)] px-6">
-      <StreamerDetailHero />
+      <StreamerDetailHero bannerUrl={streamer.bannerUrl} />
 
       <div className="mx-auto max-w-[1400px] w-full">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
@@ -50,17 +50,30 @@ export default async function ProStreamerDetailPage({
               primaryPlatform={streamer.primaryPlatform}
               channelUrl={streamer.channelUrl}
               avatarUrl={streamer.avatarUrl}
-              meta={
-                <>
-                  {streamer.campaignCount} campaign
-                  {streamer.campaignCount !== 1 ? "s" : ""} &middot; Member
-                  since{" "}
-                  {new Date(streamer.memberSince).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                  })}
-                </>
-              }
+              stats={[
+                {
+                  label: "Subscribers",
+                  value:
+                    streamer.subscriberCount != null
+                      ? streamer.subscriberCount >= 1000
+                        ? `${(streamer.subscriberCount / 1000).toFixed(1)}K`
+                        : String(streamer.subscriberCount)
+                      : "\u2014",
+                },
+                {
+                  label: "Likes",
+                  value:
+                    streamer.totalLikes != null
+                      ? streamer.totalLikes >= 1000
+                        ? `${(streamer.totalLikes / 1000).toFixed(1)}K`
+                        : String(streamer.totalLikes)
+                      : "\u2014",
+                },
+                {
+                  label: "Campaigns",
+                  value: String(streamer.campaignCount),
+                },
+              ]}
               action={
                 <Button>
                   <Link
@@ -153,7 +166,8 @@ export default async function ProStreamerDetailPage({
               <dl className="mt-3 space-y-3">
                 <div className="flex justify-between gap-4 border-b border-[var(--color-border-light)] pb-3">
                   <dt className="text-sm text-[var(--color-muted-foreground)]">
-                    {streamer.primaryPlatform.charAt(0) + streamer.primaryPlatform.slice(1).toLowerCase()}
+                    {streamer.primaryPlatform.charAt(0) +
+                      streamer.primaryPlatform.slice(1).toLowerCase()}
                   </dt>
                   <dd className="text-sm text-right min-w-0">
                     <a
@@ -162,7 +176,9 @@ export default async function ProStreamerDetailPage({
                       rel="noopener noreferrer"
                       className="text-[var(--color-brand)] hover:underline break-all"
                     >
-                      {streamer.channelUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                      {streamer.channelUrl
+                        .replace(/^https?:\/\//, "")
+                        .replace(/\/$/, "")}
                     </a>
                   </dd>
                 </div>

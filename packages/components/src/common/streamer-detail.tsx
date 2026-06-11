@@ -32,17 +32,26 @@ function platformIcon(platform: StreamPlatform): ReactNode {
 }
 
 export function StreamerDetailHero({
+  bannerUrl,
   className,
   ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}: HTMLAttributes<HTMLDivElement> & { bannerUrl?: string | null }) {
   return (
     <section
       className={cn(
-        "mx-auto max-w-[1400px] bg-[var(--color-section)] text-[var(--color-section-foreground)] h-40 md:h-52",
+        "mx-auto max-w-[1400px] bg-[var(--color-section)] text-[var(--color-section-foreground)] h-40 md:h-52 relative overflow-hidden",
         className,
       )}
       {...props}
-    />
+    >
+      {bannerUrl && (
+        <img
+          src={bannerUrl}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-50"
+        />
+      )}
+    </section>
   );
 }
 
@@ -52,6 +61,7 @@ export type StreamerDetailProfileProps = HTMLAttributes<HTMLDivElement> & {
   channelUrl: string | null;
   avatarUrl: string | null;
   meta?: ReactNode;
+  stats?: { label: string; value: string }[];
   action?: ReactNode;
 };
 
@@ -60,6 +70,8 @@ export function StreamerDetailProfile({
   primaryPlatform,
   channelUrl,
   avatarUrl,
+  meta,
+  stats,
   action,
   className,
   ...props
@@ -86,6 +98,32 @@ export function StreamerDetailProfile({
             <h1 className="text-2xl font-bold leading-tight sm:text-3xl text-[var(--color-foreground)]">
               {displayName}
             </h1>
+
+            {meta && (
+              <p className="text-sm text-[var(--color-muted-foreground)] -mt-2">
+                {meta}
+              </p>
+            )}
+
+            {stats && stats.length > 0 && (
+              <div className="flex items-center gap-3 text-sm -mt-2">
+                {stats.map((stat, i) => (
+                  <span key={stat.label} className="flex items-center gap-1">
+                    <span className="font-semibold text-[var(--color-foreground)]">
+                      {stat.value}
+                    </span>
+                    <span className="text-[var(--color-muted-foreground)]">
+                      {stat.label}
+                    </span>
+                    {i < stats.length - 1 && (
+                      <span className="text-[var(--color-border-light)] ml-2">
+                        |
+                      </span>
+                    )}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {action ??
               (channelUrl ? (

@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { cn } from "@maingame/utils";
 
 const navItems = [
-  { label: "Dashboard", href: "/profile" },
-  { label: "My Games", href: "/profile/games" },
-  { label: "My Streams", href: "/profile/streams" },
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "My Games", href: "/dashboard/games" },
+  { label: "My Streams", href: "/dashboard/streams" },
 ];
 
 export default function ProfileLayout({

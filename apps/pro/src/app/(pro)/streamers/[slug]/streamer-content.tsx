@@ -81,28 +81,6 @@ export function StreamerDetailContent({
             </section>
           )}
 
-          <section>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="border border-[var(--color-border-light)] bg-[var(--color-surface)] p-4 text-center">
-                <p className="text-xl font-bold text-[var(--color-foreground)]">
-                  {formatNumber(streamer.subscriberCount ?? 0)}
-                </p>
-                <p className="text-xs text-[var(--color-muted-foreground)] mt-0.5">Subscribers</p>
-              </div>
-              <div className="border border-[var(--color-border-light)] bg-[var(--color-surface)] p-4 text-center">
-                <p className="text-xl font-bold text-[var(--color-foreground)]">
-                  {formatNumber(streamer.totalLikes ?? 0)}
-                </p>
-                <p className="text-xs text-[var(--color-muted-foreground)] mt-0.5">Total Likes</p>
-              </div>
-              <div className="border border-[var(--color-border-light)] bg-[var(--color-surface)] p-4 text-center">
-                <p className="text-xl font-bold text-[var(--color-foreground)]">
-                  {streamer.campaignCount}
-                </p>
-                <p className="text-xs text-[var(--color-muted-foreground)] mt-0.5">Campaigns</p>
-              </div>
-            </div>
-          </section>
         </div>
       )}
 

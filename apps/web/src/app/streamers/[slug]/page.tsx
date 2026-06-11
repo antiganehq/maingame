@@ -33,7 +33,7 @@ export default async function StreamerDetailPage({
 
   return (
     <main className="min-h-screen text-[var(--color-foreground)]">
-      <StreamerDetailHero />
+      <StreamerDetailHero bannerUrl={streamer.bannerUrl} />
 
       <div className="mx-auto max-w-[1400px] w-full px-6 sm:px-8 md:px-12">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
@@ -43,16 +43,30 @@ export default async function StreamerDetailPage({
               primaryPlatform={streamer.primaryPlatform}
               channelUrl={streamer.channelUrl}
               avatarUrl={streamer.avatarUrl}
-              meta={
-                <>
-                  {streamer.campaignCount} campaign
-                  {streamer.campaignCount !== 1 ? "s" : ""} &middot; Member since{" "}
-                  {new Date(streamer.memberSince).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                  })}
-                </>
-              }
+              stats={[
+                {
+                  label: "Subscribers",
+                  value:
+                    streamer.subscriberCount != null
+                      ? streamer.subscriberCount >= 1000
+                        ? `${(streamer.subscriberCount / 1000).toFixed(1)}K`
+                        : String(streamer.subscriberCount)
+                      : "\u2014",
+                },
+                {
+                  label: "Likes",
+                  value:
+                    streamer.totalLikes != null
+                      ? streamer.totalLikes >= 1000
+                        ? `${(streamer.totalLikes / 1000).toFixed(1)}K`
+                        : String(streamer.totalLikes)
+                      : "\u2014",
+                },
+                {
+                  label: "Campaigns",
+                  value: String(streamer.campaignCount),
+                },
+              ]}
             />
             <StreamerDetailContent streamer={streamer} />
           </div>
