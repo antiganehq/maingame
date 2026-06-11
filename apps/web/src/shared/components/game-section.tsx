@@ -1,6 +1,6 @@
 "use client";
 
-import { CatalogRow, GameCard, SectionHeading } from "@maingame/components";
+import { CatalogRow, VerticalGameCard, SectionHeading } from "@maingame/components";
 import { streamingGames } from "@maingame/db";
 
 export function GameSection() {
@@ -10,7 +10,7 @@ export function GameSection() {
         <SectionHeading text1="Categories" text2="we think you'll like" />
       }
       items={streamingGames}
-      renderItem={(item) => <GameCard {...item} />}
+      renderItem={(item) => <VerticalGameCard {...item} />}
     />
   );
 }

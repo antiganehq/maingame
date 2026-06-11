@@ -4,6 +4,7 @@ export * from "./ui/input";
 export * from "./ui/select";
 export * from "./ui/textarea";
 export * from "./ui/game-card";
+export * from "./ui/vertical-game-card";
 export * from "./ui/streamer-card";
 export * from "./ui/section-heading";
 export * from "./common/card";

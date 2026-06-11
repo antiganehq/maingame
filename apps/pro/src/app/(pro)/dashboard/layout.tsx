@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@maingame/utils";
 
 const navItems = [
@@ -16,12 +16,13 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <main>
       <div className="mx-auto max-w-[1400px] flex min-h-[calc(100vh-8rem)]">
-        <aside className="w-56 shrink-0 pr-4 pt-4">
-          <h3 className="sr-only">Profile</h3>
+        <aside className="w-56 shrink-0 pr-4 pt-4 flex flex-col">
+          <h3 className="sr-only">Dashboard</h3>
           <nav className="grid gap-1">
             {navItems.map((item) => (
               <Link
@@ -38,6 +39,15 @@ export default function ProfileLayout({
               </Link>
             ))}
           </nav>
+          <button
+            onClick={() => {
+              window.sessionStorage.removeItem("isAuthenticated");
+              router.push("/auth");
+            }}
+            className="px-3 py-2 text-sm text-left text-red-500 hover:text-red-600 transition-colors"
+          >
+            Sign Out
+          </button>
         </aside>
         <div className="flex-1 min-w-0">{children}</div>
       </div>
