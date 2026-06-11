@@ -1,5 +1,4 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react";
-import Link from "next/link";
 import { cn } from "@maingame/utils";
 
 export type CatalogCardItem = {
@@ -25,7 +24,7 @@ export function CatalogCard({
   ...props
 }: CatalogCardProps) {
   return (
-    <Link
+    <a
       href={href ?? `/games/${slug}`}
       className={cn("group block", className)}
       {...props}
@@ -56,6 +55,6 @@ export function CatalogCard({
           </div>
         )}
       </div>
-    </Link>
+    </a>
   );
 }

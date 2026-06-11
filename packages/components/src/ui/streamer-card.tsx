@@ -1,5 +1,4 @@
 import type { AnchorHTMLAttributes, ReactNode } from "react";
-import Link from "next/link";
 import { cn } from "@maingame/utils";
 import { StreamPlatform } from "@maingame/types";
 
@@ -59,7 +58,7 @@ export function StreamerCard({
   ...props
 }: StreamerCardProps) {
   return (
-    <Link
+    <a
       href={href ?? `/streamers/${slug}`}
       className={cn("group block", className)}
       {...props}
@@ -94,6 +93,6 @@ export function StreamerCard({
           </div>
         )}
       </div>
-    </Link>
+    </a>
   );
 }

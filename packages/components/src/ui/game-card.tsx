@@ -1,5 +1,4 @@
 import type { AnchorHTMLAttributes } from "react";
-import Link from "next/link";
 import { cn } from "@maingame/utils";
 
 export type GameCardProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -20,7 +19,7 @@ export function GameCard({
   ...props
 }: GameCardProps) {
   return (
-    <Link
+    <a
       href={href ?? `/games/${slug}`}
       className={cn("group block", className)}
       {...props}
@@ -46,6 +45,6 @@ export function GameCard({
           {streamerCount} {streamerCount === 1 ? "streamer" : "streamers"}
         </p>
       </div>
-    </Link>
+    </a>
   );
 }

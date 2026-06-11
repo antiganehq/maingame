@@ -1,5 +1,4 @@
 import type { HTMLAttributes, ReactNode } from "react";
-import Link from "next/link";
 import { cn } from "@maingame/utils";
 import { StreamPlatform } from "@maingame/types";
 
@@ -99,15 +98,15 @@ export function StreamerDetailHero({
         <div className="flex-shrink-0">
           {action ?? (
             channelUrl ? (
-              <Link
+              <a
                 href={channelUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 bg-[var(--color-brand)] px-5 text-sm font-medium text-[var(--color-brand-foreground)] transition-colors hover:bg-[var(--color-brand-hover)]"
+                className="inline-flex min-h-11 items-center gap-2 bg-[var(--color-brand)] px-5 text-sm font-medium text-[var(--color-brand-foreground)] transition-colors hover:bg-[var(--color-brand-hover)] no-underline"
               >
                 {platformIcon(primaryPlatform)}
                 Watch on {label}
-              </Link>
+              </a>
             ) : null
           )}
         </div>

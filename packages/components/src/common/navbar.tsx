@@ -3,7 +3,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, Menu, Moon, Sun, X } from "lucide-react";
-import Link from "next/link";
 
 type NavDropdownItem = { label: string; href: string };
 
@@ -69,13 +68,13 @@ export function Navbar({
               {items.map((item) => {
                 if (item.kind === "link") {
                   return (
-                    <Link
+                    <a
                       key={item.label}
                       href={item.href}
-                      className="px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]"
+                      className="px-3 py-2 text-sm font-medium text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)] no-underline"
                     >
                       {item.label}
-                    </Link>
+                    </a>
                   );
                 }
 
@@ -149,21 +148,21 @@ export function Navbar({
             {/* Desktop: Action Buttons */}
             {safeActions.map((action) =>
               action.variant === "primary" ? (
-                <Link
+                <a
                   key={action.label}
                   href={action.href}
-                  className="hidden bg-[var(--color-foreground)] px-5 py-2 text-sm font-medium text-[var(--color-background)] hover:opacity-80 lg:block"
+                  className="hidden bg-[var(--color-foreground)] px-5 py-2 text-sm font-medium text-[var(--color-background)] hover:opacity-80 lg:block no-underline"
                 >
                   {action.label}
-                </Link>
+                </a>
               ) : (
-                <Link
+                <a
                   key={action.label}
                   href={action.href}
-                  className="hidden border border-[var(--color-border-light)] px-4 py-2 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)] lg:block"
+                  className="hidden border border-[var(--color-border-light)] px-4 py-2 text-sm font-medium text-[var(--color-foreground)] hover:bg-[var(--color-surface-hover)] lg:block no-underline"
                 >
                   {action.label}
-                </Link>
+                </a>
               ),
             )}
 
