@@ -1,0 +1,7 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "pnpm turbo run build --filter @maingame/pro",
+  "installCommand": "pnpm install",
+  "devCommand": "next dev --port 3001",
+  "outputDirectory": "apps/pro/.next"
+}
