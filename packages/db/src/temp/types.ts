@@ -50,7 +50,12 @@ export interface StreamerDetailData {
   avatarUrl: string | null;
   bio: string;
   memberSince: string;
+  gender?: string;
+  language?: string;
+  birthDate?: string;
   campaignCount: number;
+  subscriberCount?: number;
+  totalLikes?: number;
   averageGameRating: number;
   averageStreamerRating: number;
   streamArchives: {

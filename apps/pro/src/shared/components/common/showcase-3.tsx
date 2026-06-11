@@ -328,7 +328,7 @@ export function Showcase3() {
             <span className="block text-sm font-display uppercase text-(--color-brand) mb-2 tracking-wider">
               {SHOWCASE_ITEMS[activeIndex].category}
             </span>
-            <h3 className="text-2xl font-medium tracking-tight text-neutral-900 dark:text-white">
+            <h3 className="text-2xl font-medium tracking-tight">
               {SHOWCASE_ITEMS[activeIndex].title}
             </h3>
           </div>

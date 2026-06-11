@@ -31,7 +31,22 @@ function platformIcon(platform: StreamPlatform): ReactNode {
   return PLATFORM_ICON[platform] ?? null;
 }
 
-export type StreamerDetailHeroProps = HTMLAttributes<HTMLDivElement> & {
+export function StreamerDetailHero({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <section
+      className={cn(
+        "mx-auto max-w-[1400px] bg-[var(--color-section)] text-[var(--color-section-foreground)] h-40 md:h-52",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export type StreamerDetailProfileProps = HTMLAttributes<HTMLDivElement> & {
   displayName: string;
   primaryPlatform: StreamPlatform;
   channelUrl: string | null;
@@ -40,29 +55,22 @@ export type StreamerDetailHeroProps = HTMLAttributes<HTMLDivElement> & {
   action?: ReactNode;
 };
 
-export function StreamerDetailHero({
+export function StreamerDetailProfile({
   displayName,
   primaryPlatform,
   channelUrl,
   avatarUrl,
-  meta,
   action,
   className,
   ...props
-}: StreamerDetailHeroProps) {
+}: StreamerDetailProfileProps) {
   const label = PLATFORM_LABEL[primaryPlatform] ?? primaryPlatform;
 
   return (
-    <section
-      className={cn(
-        "relative w-full bg-[var(--color-section)] text-[var(--color-section-foreground)]",
-        className,
-      )}
-      {...props}
-    >
-      <div className="mx-auto flex w-full max-w-[1480px] flex-col gap-6 px-6 py-10 sm:px-8 md:px-12 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex items-start gap-6">
-          <div className="h-20 w-20 sm:h-28 sm:w-28 shrink-0 overflow-hidden rounded-full ring-2 ring-[var(--color-section-foreground)]/20">
+    <div className={className} {...props}>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex items-end gap-5">
+          <div className="h-28 w-28 sm:h-40 sm:w-40 shrink-0 overflow-hidden ring-4 ring-[var(--color-background)] bg-[var(--color-brand)] flex items-center justify-center text-2xl font-bold text-[var(--color-brand-foreground)]">
             {avatarUrl ? (
               <img
                 src={avatarUrl}
@@ -70,48 +78,30 @@ export function StreamerDetailHero({
                 className="h-full w-full object-cover"
               />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-[var(--color-brand)] text-2xl font-bold text-[var(--color-brand-foreground)]">
-                {displayName.charAt(0).toUpperCase()}
-              </div>
+              displayName.charAt(0).toUpperCase()
             )}
           </div>
 
-          <div className="flex flex-col gap-2 pt-1">
-            <div className="flex items-center gap-2 flex-wrap">
-              {platformIcon(primaryPlatform)}
-              <span className="text-sm font-medium text-[var(--color-muted-foreground)]">
-                {label}
-              </span>
-            </div>
-
-            <h1 className="text-3xl font-bold leading-tight sm:text-4xl">
+          <div className="flex flex-col gap-4 items-start">
+            <h1 className="text-2xl font-bold leading-tight sm:text-3xl text-[var(--color-foreground)]">
               {displayName}
             </h1>
 
-            {meta && (
-              <p className="text-sm text-[var(--color-muted-foreground)]">
-                {meta}
-              </p>
-            )}
+            {action ??
+              (channelUrl ? (
+                <Link
+                  href={channelUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-2 bg-[var(--color-section)] px-5 text-sm font-medium text-[var(--color-section-foreground)] transition-colors hover:opacity-80"
+                >
+                  {platformIcon(primaryPlatform)}
+                  Watch on {label}
+                </Link>
+              ) : null)}
           </div>
         </div>
-
-        <div className="flex-shrink-0">
-          {action ?? (
-            channelUrl ? (
-              <Link
-                href={channelUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 bg-[var(--color-brand)] px-5 text-sm font-medium text-[var(--color-brand-foreground)] transition-colors hover:bg-[var(--color-brand-hover)]"
-              >
-                {platformIcon(primaryPlatform)}
-                Watch on {label}
-              </Link>
-            ) : null
-          )}
-        </div>
       </div>
-    </section>
+    </div>
   );
 }
