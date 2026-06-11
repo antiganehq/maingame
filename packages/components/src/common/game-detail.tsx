@@ -337,7 +337,7 @@ export function GameDetailGlance({
         />
       </div>
 
-      <dl className="relative flex w-full shrink-0 flex-col justify-between gap-6 pb-6 lg:max-w-[440px]">
+      <dl className="relative flex w-full shrink-0 flex-col justify-between gap-6 pb-6 lg:max-w-[400px]">
         <div className="flex flex-col gap-6">
           {horizontalCoverImage ? (
             <div className="relative aspect-video w-full overflow-hidden">
@@ -691,7 +691,7 @@ export function GameDetailSidebar({
   return (
     <aside
       className={cn(
-        "flex w-full shrink-0 flex-col gap-4 lg:max-w-[440px]",
+        "flex w-full shrink-0 flex-col gap-4 lg:max-w-[400px]",
         className,
       )}
       {...props}

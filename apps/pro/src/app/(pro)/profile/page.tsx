@@ -1,93 +1,225 @@
-import Link from "next/link";
-import type { Metadata } from "next";
-import { proNavigation } from "@maingame/brand";
-import { Button, Card, CardDescription, CardTitle, Badge } from "@maingame/components";
-import { UserRole } from "@maingame/types";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Profile — maingame.fun",
-  description: "Manage your studio or streamer profile.",
+import { useState } from "react";
+import { GameCard, CatalogGrid } from "@maingame/components";
+import { Button } from "@maingame/components";
+import { StreamPlatform } from "@maingame/types";
+import { allGames, allStreamers } from "@maingame/db";
+
+const PROFILE = {
+  displayName: "Nusantara Games",
+  slug: "nusantara-games",
+  avatarUrl:
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+  bannerUrl: null,
+  channelUrl: "https://twitch.tv/nusantaragames",
+  primaryPlatform: StreamPlatform.Twitch,
+  subscriberCount: 12400,
+  totalStreams: 48,
 };
 
+const PLATFORM_LABEL: Record<string, string> = {
+  [StreamPlatform.Twitch]: "Twitch",
+  [StreamPlatform.YouTube]: "YouTube",
+  [StreamPlatform.Kick]: "Kick",
+};
+
+const TABS = ["Games", "Streams"] as const;
+
+function formatCount(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}K`;
+  return String(n);
+}
+
 export default function ProfilePage() {
+  const [tab, setTab] = useState<(typeof TABS)[number]>("Games");
+
+  const myGames = allGames.filter(
+    (g) => g.developer.studioName === "Nusantara Games",
+  );
+  const myStreams = allStreamers[0]?.streamArchives ?? [];
+
+  const statCards = [
+    { label: "Subscribers", value: formatCount(PROFILE.subscriberCount) },
+    { label: "Streams", value: String(PROFILE.totalStreams) },
+    { label: "Games", value: String(myGames.length) },
+  ];
+
   return (
-    <main className="min-h-screen text-zinc-950">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-zinc-200 bg-zinc-50 p-6 md:block">
-        <Link className="text-lg font-semibold tracking-tight" href="/">
-          maingame.fun pro
-        </Link>
-        <nav className="mt-8 grid gap-2 text-sm text-zinc-600">
-          {proNavigation.map((item) => (
-            <Link
-              className="rounded-md px-3 py-2 hover:bg-white hover:text-zinc-950"
-              href={item.href}
-              key={item.href}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+    <div>
+      {/* Banner */}
+      <section className="relative h-48 md:h-60 bg-[var(--color-section)]">
+        {PROFILE.bannerUrl && (
+          <img
+            src={PROFILE.bannerUrl}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover opacity-40"
+          />
+        )}
+      </section>
 
-      <section className="md:pl-64">
-        <div className="border-b border-zinc-200 px-6 py-5">
-          <p className="text-sm text-zinc-500">Profile</p>
-        </div>
-
-        <div className="mx-auto max-w-3xl px-6 py-12 space-y-8">
-          <Card>
-            <CardTitle>Studio Profile</CardTitle>
-            <CardDescription>
-              Your public-facing studio information.
-            </CardDescription>
-            <div className="mt-6 space-y-4">
-              <div>
-                <p className="text-sm font-medium text-zinc-700">Studio Name</p>
-                <p className="text-sm text-zinc-500">Nusantara Games</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-zinc-700">Role</p>
-                <Badge variant="secondary" className="mt-1">
-                  {UserRole.GameDeveloper}
-                </Badge>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-zinc-700">Bio</p>
-                <p className="text-sm text-zinc-500 mt-1">
-                  Indie studio from Jakarta building games inspired by Southeast Asian
-                  folklore. Small team, big stories.
-                </p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-zinc-700">Website</p>
-                <p className="text-sm text-zinc-500 mt-1">
-                  https://nusantaragames.id
-                </p>
-              </div>
+      {/* Profile Info */}
+      <section className="px-6 sm:px-8 md:px-12">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="flex items-end gap-5 -mt-12 mb-4">
+            <div className="h-24 w-24 shrink-0 overflow-hidden ring-4 ring-[var(--color-background)] bg-[var(--color-brand)] flex items-center justify-center text-2xl font-bold text-[var(--color-brand-foreground)]">
+              {PROFILE.avatarUrl ? (
+                <img
+                  src={PROFILE.avatarUrl}
+                  alt={PROFILE.displayName}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                PROFILE.displayName.charAt(0).toUpperCase()
+              )}
             </div>
-            <div className="mt-6">
+
+            <div className="flex-1 min-w-0 pb-1">
+              <h1 className="text-2xl font-bold text-[var(--color-foreground)]">
+                {PROFILE.displayName}
+              </h1>
+              <p className="text-sm text-[var(--color-muted-foreground)]">
+                @{PROFILE.slug} &middot; {myGames.length} games &middot;{" "}
+                {PROFILE.totalStreams} streams
+              </p>
+            </div>
+
+            <div className="hidden sm:flex items-center gap-2 pb-1">
               <Button variant="secondary">Edit Profile</Button>
+              {PROFILE.channelUrl && (
+                <a
+                  href={PROFILE.channelUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button>
+                    Watch on {PLATFORM_LABEL[PROFILE.primaryPlatform]}
+                  </Button>
+                </a>
+              )}
             </div>
-          </Card>
-
-          <Card>
-            <CardTitle>Account Settings</CardTitle>
-            <CardDescription>
-              Manage your account preferences and security.
-            </CardDescription>
-            <div className="mt-6 space-y-4">
-              <div>
-                <p className="text-sm font-medium text-zinc-700">Email</p>
-                <p className="text-sm text-zinc-500">studio@nusantaragames.id</p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-zinc-700">Connected Wallet</p>
-                <p className="text-sm text-zinc-500">0x71C...a9F3</p>
-              </div>
-            </div>
-          </Card>
+          </div>
         </div>
       </section>
-    </main>
+
+      {/* Stats Row */}
+      <section className="px-6 sm:px-8 md:px-12 pb-4">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="grid grid-cols-3 gap-4">
+            {statCards.map((stat) => (
+              <div
+                key={stat.label}
+                className="border border-[var(--color-border-light)] bg-[var(--color-surface)] p-4 text-center"
+              >
+                <p className="text-xl font-bold text-[var(--color-foreground)]">
+                  {stat.value}
+                </p>
+                <p className="text-xs text-[var(--color-muted-foreground)] mt-0.5">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tabs */}
+      <section className="px-6 sm:px-8 md:px-12 border-b border-[var(--color-border-light)]">
+        <div className="mx-auto max-w-[1200px] flex gap-0">
+          {TABS.map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 ${
+                tab === t
+                  ? "border-[var(--color-brand)] text-[var(--color-foreground)]"
+                  : "border-transparent text-[var(--color-muted-foreground)] hover:text-[var(--color-foreground)]"
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Tab Content */}
+      <section className="px-6 sm:px-8 md:px-12 py-8">
+        <div className="mx-auto max-w-[1200px]">
+          {tab === "Games" && (
+            <>
+              {myGames.length === 0 ? (
+                <p className="text-sm text-[var(--color-muted-foreground)]">
+                  No games published yet.
+                </p>
+              ) : (
+                <CatalogGrid
+                  items={myGames}
+                  renderItem={(g) => (
+                    <GameCard
+                      title={g.title}
+                      slug={g.slug}
+                      coverImage={g.coverImage}
+                      streamerCount={g.streamerCount}
+                      meta={
+                        <>
+                          {g.genre}
+                          {g.platforms.length > 0 &&
+                            ` · ${g.platforms.join(", ")}`}
+                        </>
+                      }
+                    />
+                  )}
+                />
+              )}
+            </>
+          )}
+
+          {tab === "Streams" && (
+            <>
+              {myStreams.length === 0 ? (
+                <p className="text-sm text-[var(--color-muted-foreground)]">
+                  No stream archives yet.
+                </p>
+              ) : (
+                <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+                  {myStreams.map((archive) => (
+                    <a
+                      key={archive.id}
+                      href={archive.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block"
+                    >
+                      <div className="aspect-video relative overflow-hidden group-hover:ring-2 group-hover:ring-[var(--color-brand)] transition-all duration-200 group-hover:-translate-y-1">
+                        <img
+                          src={archive.thumbnailUrl}
+                          alt={archive.title}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="pt-2">
+                        <h3 className="text-sm font-medium text-[var(--color-foreground)] leading-snug line-clamp-2">
+                          {archive.title}
+                        </h3>
+                        <p className="text-xs text-[var(--color-muted-foreground)] mt-0.5">
+                          {archive.gameName} &middot;{" "}
+                          {new Date(archive.playedAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                            },
+                          )}
+                        </p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </section>
+    </div>
   );
 }

@@ -279,8 +279,8 @@ export function Navbar({
                       }}
                       className={
                         action.variant === "primary"
-                          ? "w-full bg-[var(--color-foreground)] px-4 py-3 text-center text-sm font-medium text-[var(--color-background)] hover:opacity-80 no-underline"
-                          : "w-full border border-[var(--color-border-light)] px-4 py-3 text-center text-sm font-medium text-[var(--color-foreground)] bg-[var(--color-background)] hover:bg-[var(--color-surface-hover)] no-underline"
+                          ? "btn-primary text-center text-sm no-underline"
+                          : "btn-secondary text-center text-sm no-underline"
                       }
                     >
                       {action.label}
