@@ -1,6 +1,4 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "next build",
-  "installCommand": "pnpm install",
-  "devCommand": "next dev --port 3000"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs"
 }
