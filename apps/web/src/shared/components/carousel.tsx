@@ -3,15 +3,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { motion, useMotionValue } from "motion/react";
 
-const imgs = [
-  "/imgs/nature/1.jpg",
-  "/imgs/nature/2.jpg",
-  "/imgs/nature/3.jpg",
-  "/imgs/nature/4.jpg",
-  "/imgs/nature/5.jpg",
-  "/imgs/nature/6.jpg",
-  "/imgs/nature/7.jpg",
-];
+const imgs = ["/imgs/nature/1.jpg", "/imgs/nature/2.jpg", "/imgs/nature/3.jpg"];
 
 const ONE_SECOND = 1000;
 const AUTO_DELAY = ONE_SECOND * 10;

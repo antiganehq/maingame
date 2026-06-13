@@ -7,3 +7,6 @@ export function formatDots(amount: number) {
     maximumFractionDigits: 0
   }).format(amount);
 }
+
+export { useBreakpoint } from "./hooks/use-breakpoint";
+export type { Breakpoint } from "./hooks/use-breakpoint";
